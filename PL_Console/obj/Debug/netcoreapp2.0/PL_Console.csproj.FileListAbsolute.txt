@@ -1,0 +1,17 @@
+/Users/valentino/Desktop/Group-2/PL_Console/bin/Debug/netcoreapp2.0/PL_Console.deps.json
+/Users/valentino/Desktop/Group-2/PL_Console/bin/Debug/netcoreapp2.0/PL_Console.runtimeconfig.json
+/Users/valentino/Desktop/Group-2/PL_Console/bin/Debug/netcoreapp2.0/PL_Console.runtimeconfig.dev.json
+/Users/valentino/Desktop/Group-2/PL_Console/bin/Debug/netcoreapp2.0/PL_Console.dll
+/Users/valentino/Desktop/Group-2/PL_Console/bin/Debug/netcoreapp2.0/PL_Console.pdb
+/Users/valentino/Desktop/Group-2/PL_Console/bin/Debug/netcoreapp2.0/BL.dll
+/Users/valentino/Desktop/Group-2/PL_Console/bin/Debug/netcoreapp2.0/DAL.dll
+/Users/valentino/Desktop/Group-2/PL_Console/bin/Debug/netcoreapp2.0/Persitence.dll
+/Users/valentino/Desktop/Group-2/PL_Console/bin/Debug/netcoreapp2.0/BL.pdb
+/Users/valentino/Desktop/Group-2/PL_Console/bin/Debug/netcoreapp2.0/Persitence.pdb
+/Users/valentino/Desktop/Group-2/PL_Console/bin/Debug/netcoreapp2.0/DAL.pdb
+/Users/valentino/Desktop/Group-2/PL_Console/obj/Debug/netcoreapp2.0/PL_Console.csproj.CoreCompileInputs.cache
+/Users/valentino/Desktop/Group-2/PL_Console/obj/Debug/netcoreapp2.0/PL_Console.AssemblyInfoInputs.cache
+/Users/valentino/Desktop/Group-2/PL_Console/obj/Debug/netcoreapp2.0/PL_Console.AssemblyInfo.cs
+/Users/valentino/Desktop/Group-2/PL_Console/obj/Debug/netcoreapp2.0/PL_Console.csproj.CopyComplete
+/Users/valentino/Desktop/Group-2/PL_Console/obj/Debug/netcoreapp2.0/PL_Console.dll
+/Users/valentino/Desktop/Group-2/PL_Console/obj/Debug/netcoreapp2.0/PL_Console.pdb

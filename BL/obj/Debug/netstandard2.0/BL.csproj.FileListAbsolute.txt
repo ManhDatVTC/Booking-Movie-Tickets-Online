@@ -1,0 +1,13 @@
+/Users/valentino/Desktop/Group-2/BL/bin/Debug/netstandard2.0/BL.deps.json
+/Users/valentino/Desktop/Group-2/BL/bin/Debug/netstandard2.0/BL.dll
+/Users/valentino/Desktop/Group-2/BL/bin/Debug/netstandard2.0/BL.pdb
+/Users/valentino/Desktop/Group-2/BL/bin/Debug/netstandard2.0/DAL.dll
+/Users/valentino/Desktop/Group-2/BL/bin/Debug/netstandard2.0/Persitence.dll
+/Users/valentino/Desktop/Group-2/BL/bin/Debug/netstandard2.0/DAL.pdb
+/Users/valentino/Desktop/Group-2/BL/bin/Debug/netstandard2.0/Persitence.pdb
+/Users/valentino/Desktop/Group-2/BL/obj/Debug/netstandard2.0/BL.csproj.CoreCompileInputs.cache
+/Users/valentino/Desktop/Group-2/BL/obj/Debug/netstandard2.0/BL.AssemblyInfoInputs.cache
+/Users/valentino/Desktop/Group-2/BL/obj/Debug/netstandard2.0/BL.AssemblyInfo.cs
+/Users/valentino/Desktop/Group-2/BL/obj/Debug/netstandard2.0/BL.csproj.CopyComplete
+/Users/valentino/Desktop/Group-2/BL/obj/Debug/netstandard2.0/BL.dll
+/Users/valentino/Desktop/Group-2/BL/obj/Debug/netstandard2.0/BL.pdb

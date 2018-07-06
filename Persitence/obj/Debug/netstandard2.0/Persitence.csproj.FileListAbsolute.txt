@@ -1,0 +1,8 @@
+/Users/valentino/Desktop/Group-2/Persitence/bin/Debug/netstandard2.0/Persitence.deps.json
+/Users/valentino/Desktop/Group-2/Persitence/bin/Debug/netstandard2.0/Persitence.dll
+/Users/valentino/Desktop/Group-2/Persitence/bin/Debug/netstandard2.0/Persitence.pdb
+/Users/valentino/Desktop/Group-2/Persitence/obj/Debug/netstandard2.0/Persitence.csproj.CoreCompileInputs.cache
+/Users/valentino/Desktop/Group-2/Persitence/obj/Debug/netstandard2.0/Persitence.AssemblyInfoInputs.cache
+/Users/valentino/Desktop/Group-2/Persitence/obj/Debug/netstandard2.0/Persitence.AssemblyInfo.cs
+/Users/valentino/Desktop/Group-2/Persitence/obj/Debug/netstandard2.0/Persitence.dll
+/Users/valentino/Desktop/Group-2/Persitence/obj/Debug/netstandard2.0/Persitence.pdb
