@@ -79,7 +79,7 @@ namespace DAL.Test {
             TimeSpan timeSpan = new TimeSpan (1, 0, 0);
             string time = string.Format ("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
             // Movie id , DateTime , Time =>>>   
-            Assert.True (sch.SelectTimeBy (1, comparedatetime1, time) == null);
+            Assert.False (sch.SelectTimeBy (1, comparedatetime1, time) == null);
         }
         private Schedules GetScheduleExecQuery (string query) {
             Schedules sche = new Schedules ();

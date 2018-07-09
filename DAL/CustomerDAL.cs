@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using MySql.Data.MySqlClient;
 using Persitence;
 
@@ -24,13 +25,18 @@ namespace DAL {
             return customer;
         }
         public Customer Login (string email, string password) {
+            string regexEmail = @"^[^<>()[\]\\,;:'\%#^\s@\$&!@]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,}))$";
+            string regexPassword = @"^[-.@_a-zA-Z0-9 ]+$";
+            if (Regex.IsMatch (email, regexEmail) != true || email == "" || Regex.IsMatch (password, regexPassword) != true || password == "") {
+                return null;
+            }
             query = $"Select * From Customer  where customer_email = '{email}' and password = '{password}';";
             Customer customer = null;
             using (connection = DBHelper.OpenConnection ()) {
-                customer = new Customer ();
                 MySqlCommand cmd = new MySqlCommand (query, connection);
                 using (reader = cmd.ExecuteReader ()) {
                     if (reader.Read ()) {
+                        customer = new Customer ();
                         customer = GetCustomer (reader);
                     }
                 }

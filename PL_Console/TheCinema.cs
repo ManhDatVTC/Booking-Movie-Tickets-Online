@@ -45,8 +45,7 @@ namespace PL_Console {
                         Console.ReadLine ();
                         break;
                     case 4:
-                        UserInterface user = new UserInterface ();
-                        user.InterfaceCinema ();
+                        UserInterface.InterfaceCinema ();
                         return;
                 }
             }
@@ -60,9 +59,11 @@ namespace PL_Console {
                 if (i != 4) {
                     Console.WriteLine ($"{i+1}. {menu[i]}");
                 } else {
+                    Console.WriteLine ("------------------------------------------------------------- ");
                     Console.Write ($"{menu[i]}");
                 }
             }
+            
         }
     }
 }

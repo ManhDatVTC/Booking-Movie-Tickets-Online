@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using MySql.Data.MySqlClient;
 using Persitence;
 
@@ -96,6 +97,10 @@ namespace DAL {
         }
         // Lấy ra các lịch chiếu nhờ movie id và date
         public List<Schedules> SelectTime (int movie_id, string date) {
+            string regexDate = @"(?<year>\d{2,4})-(?<month>\d{1,2})-(?<day>\d{1,2})";
+            if (Regex.IsMatch (date, regexDate) != true) {
+                return null;
+            }
             string query = $"Select * from Schedules where movie_id = '{movie_id}' and show_date = '{date}' ;";
             List<Schedules> schedule = new List<Schedules> ();
             using (connection = DBHelper.OpenConnection ()) {
@@ -111,6 +116,11 @@ namespace DAL {
         }
         // Lay ra lich chieu nho movie id date start time. 
         public Schedules SelectTimeBy (int movie_id, string date, string start_time) {
+            string regexDate = @"(?<year>\d{2,4})-(?<month>\d{1,2})-(?<day>\d{1,2})";
+            string regexTime = @"^(\d{1,2}|\d\.\d{2}):([0-5]\d):([0-5]\d)(\.\d+)?$";
+            if (Regex.IsMatch (date, regexDate) != true || Regex.IsMatch (start_time, regexTime) != true) {
+                return null;
+            }
             string query = $"Select * from Schedules where movie_id = '{movie_id}' and show_date = '{date}' and start_time = '{start_time}' ;";
             Schedules schedule = null;
             using (connection = DBHelper.OpenConnection ()) {

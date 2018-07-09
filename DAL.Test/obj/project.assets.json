@@ -6115,11 +6115,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/valentino/Desktop/Group-2/DAL.Test/DAL.Test.csproj",
+      "projectUniqueName": "/Users/valentino/Desktop/Booking-Movie-Tickets-Online/DAL.Test/DAL.Test.csproj",
       "projectName": "DAL.Test",
-      "projectPath": "/Users/valentino/Desktop/Group-2/DAL.Test/DAL.Test.csproj",
+      "projectPath": "/Users/valentino/Desktop/Booking-Movie-Tickets-Online/DAL.Test/DAL.Test.csproj",
       "packagesPath": "/Users/valentino/.nuget/packages/",
-      "outputPath": "/Users/valentino/Desktop/Group-2/DAL.Test/obj/",
+      "outputPath": "/Users/valentino/Desktop/Booking-Movie-Tickets-Online/DAL.Test/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
@@ -6136,8 +6136,8 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "/Users/valentino/Desktop/Group-2/DAL/DAL.csproj": {
-              "projectPath": "/Users/valentino/Desktop/Group-2/DAL/DAL.csproj"
+            "/Users/valentino/Desktop/Booking-Movie-Tickets-Online/DAL/DAL.csproj": {
+              "projectPath": "/Users/valentino/Desktop/Booking-Movie-Tickets-Online/DAL/DAL.csproj"
             }
           }
         }

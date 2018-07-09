@@ -6,7 +6,7 @@ using Persitence;
 
 namespace PL_Console {
     class UserInterface {
-        public void InterfaceCinema () {
+        public static void InterfaceCinema () {
             while (true) {
                 Console.Clear ();
                 Menu_Interface ();
@@ -58,91 +58,94 @@ namespace PL_Console {
                     Console.WriteLine ("=============================================================");
                     Customer_Bl ad = new Customer_Bl ();
                     string Email;
-                    Console.Write ("- Nhập Email          : ");
+                    string password;
                     while (true) {
+                        Console.Write ("- Nhập Email          : ");
                         Email = Console.ReadLine ();
-                        // - Regex Email validation 
-                        if (Regex.IsMatch (Email, @"^[^@]+@[^@.]+\.[^@]*\w\w$|^0[0-9]{9,10}$") != true) {
-                            Console.WriteLine ("-----\n*^: Bạn đã nhập sai định dạng email. VD: valentinoliv@gmail.com\n------");
-                            Console.Write ("- Nhập lại email: ");
-                        } else {
-                            break;
-                        }
-                    }
-                    string password = "";
-                    Console.Write ("- Nhập Mật Khẩu       : ");
-                    ConsoleKeyInfo keyInfo;
-                    while (true) {
-                        do {
-                            keyInfo = Console.ReadKey (true);
-                            // Skip if Backspace or Enter is Pressed
-                            if (keyInfo.Key != ConsoleKey.Backspace && keyInfo.Key != ConsoleKey.Enter) {
-                                password += keyInfo.KeyChar;
-                                Console.Write ("*");
-                            } else {
-                                // Remove last charcter if Backspace is Pressed
-                                if (keyInfo.Key == ConsoleKey.Backspace && password.Length > 0) {
-                                    password = password.Substring (0, (password.Length - 1));
-                                    Console.Write ("\b \b");
-                                }
-                            }
-                        } while (keyInfo.Key != ConsoleKey.Enter);
-                        if (password != "") {
-                            break;
-                        } else {
-                            Console.Clear ();
-                            Console.WriteLine ("Bạn chưa nhập mật khẩu, vui lòng nhập lại.");
-                            Console.Write ("- Nhập mật khẩu       : ");
-                        }
-                    }
-
-                    int count = 0;
-                    Customer customer = ad.Login (Email, password);
-                    if (ad.Login(Email,password).Email == Email && ad.Login(Email,password).Password == password) {
-                        count ++;
-                    }
-                    if (count != 1) {
-                        Console.Clear ();
-                        Console.WriteLine ("-------------------------------------------------------------");
-                        Console.WriteLine ("  *^:   Email hoặc mật khẩu của bạn chưa chính xác.");
-                        Console.WriteLine ("-------------------------------------------------------------");
+                        Console.Write ("- Nhập Mật Khẩu       : ");
                         while (true) {
-                            Console.WriteLine ("1. Thử lại.");
-                            Console.WriteLine ("2. Thoát");
-                            Console.Write ("#Chọn : ");
-                            int number;
-                            while (true) {
-                                bool isINT = Int32.TryParse (Console.ReadLine (), out number);
-                                if (!isINT) {
-                                    Console.WriteLine ("Giá trị sai vui lòng nhập lại");
-                                    Console.Write ("#Chọn : ");
-                                } else if (number < 0 || number > 2) {
-                                    Console.WriteLine ("Giá trị sai vui lòng nhập lại 1 - 2. ");
-                                    Console.Write ("#Chọn : ");
+                            password = "";
+                            ConsoleKeyInfo keyInfo;
+                            do {
+                                keyInfo = Console.ReadKey (true);
+                                // Skip if Backspace or Enter is Pressed
+                                if (keyInfo.Key != ConsoleKey.Backspace && keyInfo.Key != ConsoleKey.Enter) {
+                                    password += keyInfo.KeyChar;
+                                    Console.Write ("*");
                                 } else {
-                                    break;
+                                    // Remove last charcter if Backspace is Pressed
+                                    if (keyInfo.Key == ConsoleKey.Backspace && password.Length > 0) {
+                                        password = password.Substring (0, (password.Length - 1));
+                                        Console.Write ("\b \b");
+                                    }
                                 }
-                            }
-                            switch (number) {
-                                case 1:
-                                    Console.Clear ();
-                                    break;
-                                case 2:
-                                    Console.Clear ();
-                                    return;
-                            }
-                            if (number == 1) {
+                            } while (keyInfo.Key != ConsoleKey.Enter);
+                            break;
+                        }
+                        if (CheckNotSpecialCharacters (Email, password) == true) {
+                            break;
+                        } else {
+                            CheckLoginSuccessOrFailure (0);
+                        }
+                    }
+                    int count = 0;
+                    if (ad.Login (Email, password) != null) {
+                        count++;
+                    }
+                    CheckLoginSuccessOrFailure (count);
+                }
+
+            }
+            private static bool CheckNotSpecialCharacters (string Email, string password) {
+                if (Regex.IsMatch (Email, @"^[^<>()[\]\\,;:'\%#^\s@\$&!@]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,}))$") != true ||
+                    Email == "" || Regex.IsMatch (password, @"^[-.@_a-zA-Z0-9 ]+$") != true || password == "") {
+                    return false;
+                }
+                return true;
+            }
+
+            private static void CheckLoginSuccessOrFailure (int count) {
+                if (count != 1) {
+                    Console.Clear ();
+                    Console.WriteLine ("-------------------------------------------------------------");
+                    Console.WriteLine ("  *^:   Email hoặc mật khẩu của bạn chưa chính xác.");
+                    Console.WriteLine ("-------------------------------------------------------------");
+                    while (true) {
+                        Console.WriteLine ("1. Thử lại.");
+                        Console.WriteLine ("2. Thoát");
+                        Console.Write ("#Chọn : ");
+                        int number;
+                        while (true) {
+                            bool isINT = Int32.TryParse (Console.ReadLine (), out number);
+                            if (!isINT) {
+                                Console.WriteLine ("Giá trị sai vui lòng nhập lại");
+                                Console.Write ("#Chọn : ");
+                            } else if (number < 0 || number > 2) {
+                                Console.WriteLine ("Giá trị sai vui lòng nhập lại 1 - 2. ");
+                                Console.Write ("#Chọn : ");
+                            } else {
                                 break;
                             }
                         }
-                    } else {
-                        CinemaInterface cinema = new CinemaInterface ();
-                        cinema.Cinema ();
-                        Console.WriteLine ("-------------------------------------------------------------");
-                        return;
+                        switch (number) {
+                            case 1:
+                                Console.Clear ();
+                                break;
+                            case 2:
+                                Console.Clear ();
+                                InterfaceCinema ();
+                                break;
+                        }
+                        if (number == 1) {
+                            break;
+                        }
                     }
+                } else {
+                    CinemaInterface cinema = new CinemaInterface ();
+                    cinema.Cinema ();
+                    Console.WriteLine ("-------------------------------------------------------------");
+                    return;
                 }
-
             }
         }
     }

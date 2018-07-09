@@ -15,15 +15,13 @@ namespace DAL.Test {
 
         [Fact]
         public void LoginTest1 () {
-            Customer customer = cus.Login ("", "");
-            // Assert.NotEqual ("", customer.Email);
-            // Assert.NotEqual ("", customer.Password);
+            Customer customer = cus.Login ("'", "");
             Assert.Null (customer);
         }
 
         [Fact]
         public void TestName () {
-            Customer customer = cus.Login (",,1`12", "asdfg");
+            Customer customer = cus.Login (",,'1`12", "as''dfg");
             Assert.Null (customer);
         }
 

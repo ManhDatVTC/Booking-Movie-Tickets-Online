@@ -1,3 +1,4 @@
+using System;
 using BL;
 using Xunit;
 
@@ -27,23 +28,23 @@ public class TestScheduleBl {
     public void SelectScheduleTimeByTestTrue (int movie_id, string datetime, string time) {
         string regexDate = @"(?<year>\d{2,4})-(?<month>\d{1,2})-(?<day>\d{1,2})";
         string regexTime = @"^(\d{1,2}|\d\.\d{2}):([0-5]\d):([0-5]\d)(\.\d+)?$";
+
         Assert.Matches (regexDate, datetime);
         Assert.Matches (regexTime, time);
-
+        // DateTime datetime = DateTime.Now;
         ScheduleBL sch = new ScheduleBL ();
-        Assert.NotNull (sch.SelectTimeBy(movie_id,datetime,time));
+        Assert.NotNull (sch.SelectTimeBy (movie_id, datetime, time));
     }
 
     [Theory]
-    [InlineData(1,"2018-007-26", "08:000:00")]
-    [InlineData(1,"201s8-007-26", "0008:000:00")]
-    public void SelectScheduleTimeByTestFail(int movie_id, string datetime, string time)
-    {
+    [InlineData (1, "2018-007-26", "08:000:00")]
+    [InlineData (1, "201s8-007-26", "0008:000:00")]
+    public void SelectScheduleTimeByTestFail (int movie_id, string datetime, string time) {
         string regexDate = @"(?<year>\d{2,4})-(?<month>\d{1,2})-(?<day>\d{1,2})";
         string regexTime = @"^(\d{1,2}|\d\.\d{2}):([0-5]\d):([0-5]\d)(\.\d+)?$";
         Assert.DoesNotMatch (regexDate, datetime);
         Assert.DoesNotMatch (regexTime, time);
         ScheduleBL sch = new ScheduleBL ();
-        Assert.Null (sch.SelectTimeBy(movie_id,datetime,time));
+        Assert.Null (sch.SelectTimeBy (movie_id, datetime, time));
     }
 }
