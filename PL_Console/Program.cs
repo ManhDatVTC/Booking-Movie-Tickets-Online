@@ -7,7 +7,6 @@ using Persitence;
 
 namespace PL_Console {
     class Program {
-        // static string link;
         static void Main (string[] args) {
             UserInterface.InterfaceCinema ();
         }

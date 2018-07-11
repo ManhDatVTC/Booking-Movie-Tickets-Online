@@ -43,18 +43,18 @@ namespace DAL {
             }
             return customer;
         }
-        public List<Customer> GetCustomers (MySqlCommand command) {
-            List<Customer> list = new List<Customer> ();
-            using (connection = DBHelper.OpenConnection ()) {
-                MySqlCommand cmd = new MySqlCommand (query, connection);
-                using (reader = cmd.ExecuteReader ()) {
-                    while (reader.Read ()) {
-                        list.Add (GetCustomer (reader));
-                    }
-                }
-            }
-            return list;
-        }
+        // public List<Customer> GetCustomers (MySqlCommand command) {
+        //     List<Customer> list = new List<Customer> ();
+        //     using (connection = DBHelper.OpenConnection ()) {
+        //         MySqlCommand cmd = new MySqlCommand (query, connection);
+        //         using (reader = cmd.ExecuteReader ()) {
+        //             while (reader.Read ()) {
+        //                 list.Add (GetCustomer (reader));
+        //             }
+        //         }
+        //     }
+        //     return list;
+        // }
     }
 
 }
