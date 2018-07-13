@@ -17,6 +17,7 @@ namespace DAL {
             schedule.Start_time = reader.GetTimeSpan ("start_time");
             schedule.End_time = reader.GetTimeSpan ("end_time");
             schedule.Price = reader.GetDouble ("price");
+            schedule.Schedule_room_seat = reader.GetString ("schedule_room_seat");
             return schedule;
         }
         // Lấy ra tất cả các schedule movie trong DB.
