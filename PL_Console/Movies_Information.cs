@@ -6,8 +6,9 @@ using Persitence;
 
 namespace PL_Console {
     public class MoviesInformation {
-        public void ShowInformationMovie () {
+        public static void ShowInformationMovie () {
             while (true) {
+                Console.Clear ();
                 Console.WriteLine ("============================================================================================");
                 Console.WriteLine ("---------------------------- 	Danh sách các phim đang chiếu ------------------------------");
                 Console.WriteLine ("--------------------------------------------------------------------------------------------");
@@ -31,14 +32,16 @@ namespace PL_Console {
                     }
                 }
                 if (number == 0) {
+                    CinemaInterface.Cinema ();
                     return;
                 }
                 Console.Clear ();
                 InformationMovieById (number);
             }
         }
+
         // Lấy ra và hiển thị toàn bộ các phim đang chiếu. 
-        public void ListMovie () {
+        public static void ListMovie () {
             MoviesBL movie = new MoviesBL ();
             Console.WriteLine ();
             foreach (var item in movie.GetMovies ()) {
@@ -48,7 +51,7 @@ namespace PL_Console {
             Console.WriteLine ("--------------------------------------------------------------------------------------------");
         }
         // Lấy ra movie detail  nhờ id.
-        public void InformationMovieById (int movie_id) {
+        public static void InformationMovieById (int movie_id) {
             while (true) {
                 Console.Clear ();
                 MoviesBL movie = new MoviesBL ();
@@ -70,39 +73,43 @@ namespace PL_Console {
                         Console.Write ($"                           ");
                     }
                 }
-                Console.WriteLine ($"");
-                Console.WriteLine ("--------------------------------------------------------------------------------------------");
-                Console.WriteLine ("1. Xem lịch chiếu phim.");
-                Console.WriteLine ("\n2. Xem thông tin phim khác.");
-                Console.WriteLine ("--------------------------------------------------------------------------------------------");
+                ChoiceForInformationMovieById (movie_id);
+            }
+        }
+        private static void ChoiceForInformationMovieById (int movie_id) {
+            Console.WriteLine ($"");
+            Console.WriteLine ("--------------------------------------------------------------------------------------------");
+            Console.WriteLine ("1. Xem lịch chiếu phim.");
+            Console.WriteLine ("\n2. Xem thông tin phim khác.");
+            Console.WriteLine ("--------------------------------------------------------------------------------------------");
 
-                Console.Write ("#Chọn : ");
-                int number;
-                while (true) {
-                    bool isINT = Int32.TryParse (Console.ReadLine (), out number);
-                    if (!isINT) {
-                        Console.WriteLine ("Giá trị sai vui lòng nhập lại");
-                        Console.Write ("#Chọn : ");
-                    } else if (number < 0 || number > 2) {
-                        Console.WriteLine ("Giá trị sai vui lòng nhập lại 1 - 2. ");
-                        Console.Write ("#Chọn : ");
-                    } else {
-                        break;
-                    }
+            Console.Write ("#Chọn : ");
+            int number;
+            while (true) {
+                bool isINT = Int32.TryParse (Console.ReadLine (), out number);
+                if (!isINT) {
+                    Console.WriteLine ("Giá trị sai vui lòng nhập lại");
+                    Console.Write ("#Chọn : ");
+                } else if (number < 0 || number > 2) {
+                    Console.WriteLine ("Giá trị sai vui lòng nhập lại 1 - 2. ");
+                    Console.Write ("#Chọn : ");
+                } else {
+                    break;
                 }
-                switch (number) {
-                    case 1:
-                        Schedule_Infor_By_IDMOVIE_DATE (movie_id);
-                        break;
-                    case 2:
-                        Console.Clear ();
-                        return;
-                }
+            }
+            switch (number) {
+                case 1:
+                    ShowScheduleTimeForMovieId (movie_id);
+                    break;
+                case 2:
+                    ShowInformationMovie ();
+                    Console.Clear ();
+                    return;
             }
         }
 
         // Show toàn bộ các lịch chiếu của phim, so sách với mốc thời gian hiện tại nếu thời gian đã qua thì k in nữa.
-        public static void Schedule_Infor_By_IDMOVIE_DATE (int movie_id) {
+        public static void ShowScheduleTimeForMovieId (int movie_id) {
 
             Console.Clear ();
             MoviesBL movie = new MoviesBL ();
@@ -175,9 +182,11 @@ namespace PL_Console {
                     Console.WriteLine ("__________________________|_________________________________________________________________");
 
                 }
-
             }
+            ChoiceMenuBookingAndComeBack (movie_id);
 
+        }
+        private static void ChoiceMenuBookingAndComeBack (int movie_id) {
             Console.WriteLine ($"");
             Console.WriteLine ("--------------------------------------------------------------------------------------------");
             Console.WriteLine ("1. Đặt vé.");
@@ -205,17 +214,18 @@ namespace PL_Console {
                     ticket.ChooseMovieScheduleForYou (movie_id);
                     break;
                 case 2:
+                    InformationMovieById (movie_id);
                     Console.Clear ();
                     return;
                 case 3:
-                    CinemaInterface cinema = new CinemaInterface ();
-                    cinema.Cinema ();
+                    // CinemaInterface cinema = new CinemaInterface ();
+                    CinemaInterface.Cinema ();
                     break;
 
             }
             Console.WriteLine ();
-
         }
+
     }
 
 }

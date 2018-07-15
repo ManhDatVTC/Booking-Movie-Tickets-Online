@@ -37,5 +37,8 @@ namespace BL {
             }
             return sche.SelectTimeBy (movie_id, date, start_time);
         }
+        public bool BuySeats (Schedules schedule, string MapSeats) {
+            return sche.AddMapSeats (schedule,MapSeats);
+        }
     }
 }

@@ -5,7 +5,7 @@ using Persitence;
 
 namespace PL_Console {
     class CinemaInterface {
-        public void Cinema () {
+        public static void Cinema () {
             while (true) {
 
                 Console.Clear ();
@@ -31,8 +31,8 @@ namespace PL_Console {
                 switch (number) {
                     case 1:
                         Console.Clear ();
-                        MoviesInformation infomovie = new MoviesInformation ();
-                        infomovie.ShowInformationMovie ();
+                        // MoviesInformation infomovie = new MoviesInformation ();
+                        MoviesInformation.ShowInformationMovie ();
                         break;
                     case 2:
                         BookingTicker ticker = new BookingTicker ();

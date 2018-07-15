@@ -141,8 +141,8 @@ namespace PL_Console {
                         }
                     }
                 } else {
-                    CinemaInterface cinema = new CinemaInterface ();
-                    cinema.Cinema ();
+                    // CinemaInterface cinema = new CinemaInterface ();
+                    CinemaInterface.Cinema ();
                     Console.WriteLine ("-------------------------------------------------------------");
                     return;
                 }

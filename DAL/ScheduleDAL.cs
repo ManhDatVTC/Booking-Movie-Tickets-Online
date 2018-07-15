@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text.RegularExpressions;
 using MySql.Data.MySqlClient;
 using Persitence;
@@ -134,6 +135,22 @@ namespace DAL {
                 }
             }
             return schedule;
+        }
+        public bool AddMapSeats (Schedules schedule, string mapSeats) {
+            bool result = false;
+
+            if (schedule == null || schedule.Schedule_id == 0 || schedule.Schedule_room_seat == null || schedule.Schedule_room_seat.Equals ("") || mapSeats == "") {
+                return result;
+            }
+            using (connection = DBHelper.OpenConnection ()) {
+                string query = $"update Schedules set schedule_room_seat = '{mapSeats}' where schedule_id = {schedule.Schedule_id};";
+                MySqlCommand cmd = new MySqlCommand (query, connection);
+                if (cmd.ExecuteNonQuery () > 0) {
+                    result = true;
+                }
+            }
+            return result;
+
         }
     }
 }

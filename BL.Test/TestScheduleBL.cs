@@ -1,11 +1,37 @@
 using System;
 using BL;
+using Persitence;
 using Xunit;
 
 public class TestScheduleBl {
+    private ScheduleBL sch = new ScheduleBL ();
+    [Fact]
+    public void GetSchduleTest () {
+        Assert.NotNull (sch.GetSchedules ());
+    }
 
     [Fact]
-    public void CheckDateTimeTrue () {
+    public void GetScheduleByIdTest () {
+        Assert.NotNull (sch.GetScheduleByIdSchedule (1));
+    }
+
+    [Fact]
+    public void GetScheduleByIdMovieTest () {
+        Assert.NotNull (sch.GetScheduleByIdMovie (1));
+    }
+
+    [Fact]
+    public void GetScheduleByIdRoomTest () {
+        Assert.NotNull (sch.GetScheduleByIdRooms (1));
+    }
+
+    [Fact]
+    public void SelectDateTimeByMovieIdTest () {
+        Assert.NotNull (sch.SelectDatetime (1));
+    }
+
+    [Fact]
+    public void SelectTimeByDateAndIdMovieTrueTest () {
         string regex = @"(?<year>\d{2,4})-(?<month>\d{1,2})-(?<day>\d{1,2})";
         string datetime = "2018-07-26";
         Assert.Matches (regex, datetime);
@@ -18,7 +44,7 @@ public class TestScheduleBl {
         string regex = @"(?<year>\d{2,4})-(?<month>\d{1,2})-(?<day>\d{1,2})";
         string datetime = "2018-077-26";
         Assert.DoesNotMatch (regex, datetime);
-        ScheduleBL sch = new ScheduleBL ();
+        // ScheduleBL sch = new ScheduleBL ();
         Assert.Null (sch.SelectTime (1, datetime));
     }
 
@@ -32,7 +58,7 @@ public class TestScheduleBl {
         Assert.Matches (regexDate, datetime);
         Assert.Matches (regexTime, time);
         // DateTime datetime = DateTime.Now;
-        ScheduleBL sch = new ScheduleBL ();
+        // ScheduleBL sch = new ScheduleBL ();
         Assert.NotNull (sch.SelectTimeBy (movie_id, datetime, time));
     }
 
@@ -46,5 +72,25 @@ public class TestScheduleBl {
         Assert.DoesNotMatch (regexTime, time);
         ScheduleBL sch = new ScheduleBL ();
         Assert.Null (sch.SelectTimeBy (movie_id, datetime, time));
+    }
+
+    [Fact]
+    public void BuySeatsTestTrue () {
+        DateTime date = new DateTime (2018, 7, 20);
+        TimeSpan time = new TimeSpan (8, 0, 0);
+
+        Schedules schedu = new Schedules (1, 1, 1, date, time, time, "MapSeat", 45000);
+        Assert.True (sch.BuySeats(schedu,"A B C D F E G H J K L M;10;"));
+
+    }
+
+    [Fact]
+    public void BuySeatsTestFail()
+    {
+        DateTime date = new DateTime (2018, 7, 20);
+        TimeSpan time = new TimeSpan (8, 0, 0);
+
+        Schedules schedu = new Schedules (1, 1, 1, date, time, time, "MapSeat", 45000);
+        Assert.False (sch.BuySeats(schedu,""));
     }
 }
