@@ -30,11 +30,12 @@ namespace DAL {
         }
         public Rooms GetRoomById (int room_id) {
             string query = $"Select * from Rooms where room_id = '{room_id}';";
-            Rooms room = new Rooms ();
+            Rooms room = null;
             using (connection = DBHelper.OpenConnection ()) {
                 MySqlCommand cmd = new MySqlCommand (query, connection);
                 using (reader = cmd.ExecuteReader ()) {
                     if (reader.Read ()) {
+                        room =  new Rooms ();
                         room = GetRoom (reader);
                     }
                 }
