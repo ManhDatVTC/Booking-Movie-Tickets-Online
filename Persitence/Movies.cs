@@ -34,10 +34,12 @@ namespace Persitence {
         public int Duration { get => duration; set => duration = value; }
         public string Detail_movie { get => detail_movie; set => detail_movie = value; }
         public DateTime Release_date { get => release_date; set => release_date = value; }
+
+
         public override bool Equals (object obj) {
             Movies movie = (Movies) obj;
 
-            return Movie_id == movie.Movie_id;
+            return this.GetHashCode() == movie.GetHashCode();
         }
 
         public override int GetHashCode () {

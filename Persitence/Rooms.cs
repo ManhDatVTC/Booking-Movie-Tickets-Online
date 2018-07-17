@@ -24,8 +24,7 @@ namespace Persitence {
 
         public override bool Equals (object obj) {
             Rooms room = (Rooms) obj;
-
-            return Room_id == room.Room_id;
+            return this.GetHashCode() == room.GetHashCode();
         }
 
         public override int GetHashCode () {

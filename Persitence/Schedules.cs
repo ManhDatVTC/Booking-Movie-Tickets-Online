@@ -37,7 +37,7 @@ namespace Persitence {
         public override bool Equals (object obj) {
             Schedules schedDetail = (Schedules) obj;
 
-            return Schedule_id == schedDetail.Schedule_id;
+            return this.GetHashCode() == schedDetail.GetHashCode();
         }
 
         public override int GetHashCode () {

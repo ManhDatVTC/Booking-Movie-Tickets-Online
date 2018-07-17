@@ -26,10 +26,10 @@ namespace DAL {
             string query = $"Select * from Reservation where customer_Id = {Customer_id};";
             List<Reservation> reservation = null;
             using (connection = DBHelper.OpenConnection ()) {
+                reservation = new List<Reservation> ();
                 MySqlCommand cmd = new MySqlCommand (query, connection);
                 using (reader = cmd.ExecuteReader ()) {
                     while (reader.Read ()) {
-                        reservation = new List<Reservation> ();
                         reservation.Add (GetReservation (reader));
                     }
                 }

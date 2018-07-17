@@ -31,7 +31,7 @@ namespace Persitence {
         public override bool Equals (object obj) {
             Reservation reser = (Reservation) obj;
 
-            return Reservation_id == reser.Reservation_id;
+            return this.GetHashCode() == reser.GetHashCode();
         }
         public override int GetHashCode () {
             return ("" + Reservation_id + Customer_id + Schedule_id + Seats + Price + Create_on).GetHashCode ();

@@ -218,7 +218,6 @@ namespace PL_Console {
                     Console.Clear ();
                     return;
                 case 3:
-                    // CinemaInterface cinema = new CinemaInterface ();
                     CinemaInterface.Cinema ();
                     break;
 

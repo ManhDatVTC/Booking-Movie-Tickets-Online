@@ -103,14 +103,6 @@ namespace PL_Console {
             }
 
         }
-        public static void ChoiceBookingAndContinue () {
-            Console.WriteLine ("    |                                                                                               |");
-            Console.WriteLine ("    |     1. Đặt vé các ghế đã chọn.                                                                |");
-            Console.WriteLine ("    |                                                                                               |");
-            Console.WriteLine ("    |     2. Đặt thêm ghế .                                                                         |");
-            Console.WriteLine ("    |                                                                                               |");
-            Console.WriteLine ("    |_______________________________________________________________________________________________|");
-        }
         // Lay du lieu tu Database rồi add vào List Succer.
         public static List<string> AddlistByMapSeat (List<string> succer, string[] seated) {
             for (int i = 0; i < seated.Length; i++) {
@@ -220,93 +212,22 @@ namespace PL_Console {
             return Payment;
         }
 
-        public static void ComeBackMenu (Schedules scheduleUp, int count) {
-            while (true) {
-                if (count == 0) {
-                    Console.WriteLine ("\n                      1. Đặt Lại Ghế\n\n                      2. Quay Lại Menu Chính");
-
-                }
-                if (count == 1) {
-                    Console.WriteLine ("\n                          1. Đặt thêm vé xem phim.\n\n                          2. Quay Lại Menu Chính");
-
-                }
-                Console.WriteLine ("                          ------------------------------------------------------------------------------");
-                Console.Write ("\n  Chọn : ");
-                int number;
-                while (true) {
-                    bool isINT = Int32.TryParse (Console.ReadLine (), out number);
-                    if (!isINT) {
-                        Console.WriteLine ("Giá trị sai vui lòng nhập lại.");
-                        Console.Write ("# Chon : ");
-                    } else if (number < 0 || number > 2) {
-                        Console.WriteLine ("Giá trị sai vui lòng nhập lại 1 hoặc 2. ");
-                        Console.Write ("#Chọn : ");
-                    } else {
-                        break;
-                    }
-                }
-                switch (number) {
-                    case 1:
-                        Console.Clear ();
-                        if (count == 0) {
-                            MenuChoiceSeats (scheduleUp);
-                        }
-                        if (count == 1) {
-                            BookingTicker bookig = new BookingTicker ();
-                            bookig.MenuBookingTicker ();
-                        }
-                        return;
-                    case 2:
-                        CinemaInterface.Cinema ();
-                        Console.Clear ();
-                        return;
-                }
-            }
-        }
-        public static void YNChoice (List<string> choicedSeat, Schedules sch, string map, Reservation res) {
-            ScheduleBL schedule = new ScheduleBL ();
-            ReservationBL reser = new ReservationBL ();
-            Console.Write ($"\n                      ^: Bạn muốn đặt vé không   (Y/N) : ");
-            char tiep = ' ';
-            do {
-                tiep = Tieptuc (tiep);
-                switch (tiep) {
-                    case 'Y':
-                        reser.InsertIntoReservation (res);
-                        schedule.BuySeats (sch, map);
-                        InformationTickets (res);
-                        break;
-                    case 'y':
-                        reser.InsertIntoReservation (res);
-                        schedule.BuySeats (sch, map);
-                        InformationTickets (res);
-                        break;
-                    case 'N':
-                        ComeBackMenu (sch, 0);
-                        break;
-                    case 'n':
-                        ComeBackMenu (sch, 0);
-                        break;
-                }
-            } while (tiep != 'Y' && tiep != 'N' && tiep != 'y' && tiep != 'n');
-        }
-        public static void InformationTickets (Reservation res) {
+        public static void InformationTickets (Reservation res, int count) {
             ScheduleBL sch = new ScheduleBL ();
             Schedules schedule = sch.GetScheduleByIdSchedule (res.Schedule_id);
-            string start1 = string.Format ("{0:D2}:{1:D2}", schedule.Start_time.Hours, schedule.Start_time.Minutes);
-            string end1 = string.Format ("{0:D2}:{1:D2}", schedule.End_time.Hours, schedule.End_time.Minutes);
-            string datetime = string.Format ($"{schedule.Show_date:dd/MM/yyyy}");
+            // string start1 = string.Format ("{0:D2}:{1:D2}", schedule.Start_time.Hours, schedule.Start_time.Minutes);
+            // string end1 = string.Format ("{0:D2}:{1:D2}", schedule.End_time.Hours, schedule.End_time.Minutes);
+            // string datetime = string.Format ($"{schedule.Show_date:dd/MM/yyyy}");
             MoviesBL movie = new MoviesBL ();
             Movies informatin = movie.getMovieById (schedule.Movie_id);
             RoomBL room = new RoomBL ();
             Rooms ro = room.GetRoomById (schedule.Room_id);
-            string time = $"{start1} - {end1}";
+            // string time = $"{start1} - {end1}";
             Random random = new Random ();
             int randomNumber = random.Next (0, 100000000);
             string timeshow = ShowDay (schedule.Show_date, schedule.Start_time, schedule.End_time);
             // DateTime.Now
             // UserInterface.LoginCinema.GetCustomer ().Name;
-            string span = " ";
             Console.Clear ();
             Console.WriteLine ($"                   ++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-++++");
             Console.WriteLine ($"                   |                           √√ VÉ XEM PHIM √√                                  |");
@@ -316,7 +237,7 @@ namespace PL_Console {
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |   • Mẫu số : 01/VE2/003                   Ký Hiệu  : MT/17T                  |");
             Console.WriteLine ($"                   |                                                                              |");
-            Console.WriteLine ($"                   |   • Số vé : {randomNumber,-6}                    MST : 0303675393-001                   |");
+            Console.WriteLine ($"                   |   • Số vé : {randomNumber,-6}                    MST : 0303675393-001                 |");
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |  CÔNG TY TNHH CINEMA MẠNH ĐẠT - CHI NHÁNH HÀ NỘI                             |");
             Console.WriteLine ($"                   |  Toà nhà VTC, Số 18 phường Tam Trinh quận Hai Bà Trưng, thành phố Hà Nội     |");
@@ -331,21 +252,26 @@ namespace PL_Console {
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |   √ Thời gian chiếu :   {string.Format ($"{timeshow,-53}")}|");
             Console.WriteLine ($"                   |                                                                              |");
-            Console.WriteLine ($"                   |   √ Rạp  {string.Format ($"{ro.Name,8}")}     Ghế {string.Format ($"{res.Seats,-51}")}|");
+            Console.WriteLine ($"                   |   √ Rạp : {string.Format ($"{ro.Name,8}")}     Ghế {string.Format ($"{res.Seats,-50}")}|");
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |  ============================================================================|");
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |   √ Giá Tiền                                   VND   {res.Price,-15}         | ");
             Console.WriteLine ($"                   |                                                (Đã bao gồm 5% VAT)           |");
             Console.WriteLine ($"                   ++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-++++");
-            Console.WriteLine ($"                     ____________________________________________________________________________");
-            Console.WriteLine ();
-            Console.WriteLine ($"                          #: Vui lòng nhớ số điện thoại và số vé để đối chiếu                    ");
-            Console.WriteLine ($"                          #: Quý khánh vui lòng đến trước suất chiếu 15 phút để lấy vé           ");
-            Console.WriteLine ($"                             Quá thời gian lấy vé, chúng tôi sẽ không hoàn lại tiền vé của bạn   ");
-            Console.WriteLine ($"                             và vé đặt sẽ tự động bị huỷ.                                        ");
-            Console.WriteLine ($"                     ____________________________________________________________________________");
-            ComeBackMenu (schedule, 1);
+
+            if (count == 0) {
+                Console.WriteLine ($"                     ____________________________________________________________________________");
+                Console.WriteLine ();
+                Console.WriteLine ($"                          #: Vui lòng nhớ số điện thoại và số vé để đối chiếu                    ");
+                Console.WriteLine ($"                          #: Quý khánh vui lòng đến trước suất chiếu 15 phút để lấy vé           ");
+                Console.WriteLine ($"                             Quá thời gian lấy vé, chúng tôi sẽ không hoàn lại tiền vé của bạn   ");
+                Console.WriteLine ($"                             và vé đặt sẽ tự động bị huỷ.                                        ");
+                Console.WriteLine ($"                     ____________________________________________________________________________");
+                ComeBackMenu (schedule, 1);
+            } else {
+                return;
+            }
 
         }
         public static string ShowDay (DateTime Date, TimeSpan spanStart, TimeSpan spanEnd) {
@@ -365,17 +291,6 @@ namespace PL_Console {
                 }
             }
             return $"{arr1[count]} . {DateShow} {tym_Start} - {tym_End}";
-        }
-
-        public static char Tieptuc (char value) {
-            while (true) {
-                bool ischar = char.TryParse (Console.ReadLine (), out value);
-                if (!ischar) {
-                    Console.Write ("                    Bạn đã chọn sai vui lòng chọn lại (Y/N): ");
-                } else {
-                    return value;
-                }
-            }
         }
 
         // ----- Show Information Seats . Seat selecting and Seat have been selected.
@@ -467,6 +382,94 @@ namespace PL_Console {
                 }
             }
             return map;
+        }
+        public static void ChoiceBookingAndContinue () {
+            Console.WriteLine ("    |                                                                                               |");
+            Console.WriteLine ("    |     1. Đặt vé các ghế đã chọn.                                                                |");
+            Console.WriteLine ("    |                                                                                               |");
+            Console.WriteLine ("    |     2. Đặt thêm ghế .                                                                         |");
+            Console.WriteLine ("    |                                                                                               |");
+            Console.WriteLine ("    |_______________________________________________________________________________________________|");
+        }
+        public static void YNChoice (List<string> choicedSeat, Schedules sch, string map, Reservation res) {
+            ScheduleBL schedule = new ScheduleBL ();
+            ReservationBL reser = new ReservationBL ();
+            Console.Write ($"\n                      ^: Bạn muốn đặt vé không   (Y/N) : ");
+            char tiep = ' ';
+            do {
+                tiep = Tieptuc (tiep);
+                switch (tiep) {
+                    case 'Y':
+                        reser.InsertIntoReservation (res);
+                        schedule.BuySeats (sch, map);
+                        InformationTickets (res,0);
+                        break;
+                    case 'y':
+                        reser.InsertIntoReservation (res);
+                        schedule.BuySeats (sch, map);
+                        InformationTickets (res,0);
+                        break;
+                    case 'N':
+                        ComeBackMenu (sch, 0);
+                        break;
+                    case 'n':
+                        ComeBackMenu (sch, 0);
+                        break;
+                }
+            } while (tiep != 'Y' && tiep != 'N' && tiep != 'y' && tiep != 'n');
+        }
+        public static char Tieptuc (char value) {
+            while (true) {
+                bool ischar = char.TryParse (Console.ReadLine (), out value);
+                if (!ischar) {
+                    Console.Write ("                         Bạn đã chọn sai vui lòng chọn lại (Y/N): ");
+                } else {
+                    return value;
+                }
+            }
+        }
+        public static void ComeBackMenu (Schedules scheduleUp, int count) {
+            while (true) {
+                if (count == 0) {
+                    Console.WriteLine ("\n                      1. Đặt Lại Ghế\n\n                      2. Quay Lại Menu Chính");
+
+                }
+                if (count == 1) {
+                    Console.WriteLine ("\n                          1. Đặt thêm vé xem phim.\n\n                          2. Quay Lại Menu Chính");
+
+                }
+                Console.WriteLine ("                    ------------------------------------------------------------------------------");
+                Console.Write ("\n                          Chọn : ");
+                int number;
+                while (true) {
+                    bool isINT = Int32.TryParse (Console.ReadLine (), out number);
+                    if (!isINT) {
+                        Console.WriteLine ("                          Giá trị sai vui lòng nhập lại.");
+                        Console.Write ("                          #Chọn : ");
+                    } else if (number < 0 || number > 2) {
+                        Console.WriteLine ("                          Giá trị sai vui lòng nhập lại 1 hoặc 2. ");
+                        Console.Write ("                          #Chọn : ");
+                    } else {
+                        break;
+                    }
+                }
+                switch (number) {
+                    case 1:
+                        Console.Clear ();
+                        if (count == 0) {
+                            MenuChoiceSeats (scheduleUp);
+                        }
+                        if (count == 1) {
+                            BookingTicker bookig = new BookingTicker ();
+                            bookig.MenuBookingTicker ();
+                        }
+                        return;
+                    case 2:
+                        CinemaInterface.Cinema ();
+                        Console.Clear ();
+                        return;
+                }
+            }
         }
     }
 }

@@ -31,7 +31,6 @@ namespace PL_Console {
                 switch (number) {
                     case 1:
                         Console.Clear ();
-                        // MoviesInformation infomovie = new MoviesInformation ();
                         MoviesInformation.ShowInformationMovie ();
                         break;
                     case 2:
@@ -41,8 +40,7 @@ namespace PL_Console {
                         break;
                     case 3:
                         Information info = new Information ();
-                        // info.Information_acc ();
-                        Console.ReadLine ();
+                        info.Information_acc ();
                         break;
                     case 4:
                         UserInterface.InterfaceCinema ();
@@ -63,7 +61,7 @@ namespace PL_Console {
                     Console.Write ($"{menu[i]}");
                 }
             }
-            
+
         }
     }
 }

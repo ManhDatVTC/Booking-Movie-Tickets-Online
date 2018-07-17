@@ -1,1 +1,0 @@
-// string tym_one = string.Format ("{0:D2}:{1:D2}:{2:D2}", datefortimespan.Hours, datefortimespan.Minutes, datefortimespan.Seconds);
