@@ -59,25 +59,24 @@ CREATE UNIQUE INDEX IDX_SCHEDULE ON Schedules(room_id,show_date,start_time,end_t
 
 CREATE TABLE IF NOT EXISTS PriceSeat(
 		price_id int(11) unique auto_increment not null,
-        price_name nvarchar(10) not null,
+        ticketType nvarchar(10) not null,
         price decimal(10,2) not null 
 );
-
+Select * from PriceSeat;
 
 CREATE TABLE IF NOT EXISTS Reservation(
 		reservation_id int(11) unique auto_increment not null,
         customer_Id int(11) not null,
         schedule_id int(11) not null,
-        no_of_seat varchar(5) not null,
-        price_id int(11) not null,
+        no_of_seat varchar(30) not null,
         price decimal(10,2) not null,
         create_on datetime not null default current_timestamp(),
         FOREIGN KEY (customer_Id) REFERENCES Customer(customer_id) ON DELETE CASCADE,
-        FOREIGN KEY (schedule_id) REFERENCES Schedules(schedule_id) ON DELETE CASCADE,
-        FOREIGN KEY (price_id) REFERENCES PriceSeat(price_id) ON DELETE CASCADE
+        FOREIGN KEY (schedule_id) REFERENCES Schedules(schedule_id) ON DELETE CASCADE
 );
+sELECT * FROM Reservation;
 
-INSERT INTO PriceSeat(price_name,price) VALUE 
+INSERT INTO PriceSeat(ticketType,price) VALUE 
 ('Ghế thường','45000.00'),
 ('Ghế Vip','60000.00');
 
@@ -86,6 +85,8 @@ INSERT INTO PriceSeat(price_name,price) VALUE
 INSERT INTO Customer (name,customer_email,customer_phone,user_name,password,birthday,address,sex,account_bank) VALUE 
 ('Trần Mạnh Đạt', 'valentinolivgr@gmail.com','0988968289','Đạt Liv','123456','1997-11-20','Hưng Yên, Việt Nam','Nam','09898928181822');
 
+INSERT INTO Customer (name,customer_email,customer_phone,user_name,password,birthday,address,sex,account_bank) VALUE 
+('Harry Potter', 'harrypottet@gmail.com','0988968289','USERNAME','123456','1997-11-20','Hưng Yên, Việt Nam','Nam','09898928181822');
 -- Insert data for the table Movies
 
 INSERT INTO Movies(movie_name,actor,producers,director,genre,duration,detail_movie,release_date) VALUE 
@@ -126,15 +127,14 @@ INSERT INTO Movies(movie_name,actor,producers,director,genre,duration,detail_mov
 -- Insert data for the table Rooms
 
 INSERT INTO Rooms(name,number_of_seats,map_seat) VALUE 
-('A1','100','A B C D F E G H J K L M N O;10;'),
-('A2','80','A B C D F E G H J K L M;10;'),
-('A3','100','A B C D F E G H J K L M N O;10;'),
-('A4','100','A B C D F E G H J K L M N O;10;'),
-('A5','90','A B C D F E G H J K L M N;10;'),
-('A6','100','A B C D F E G H J K L M N O;10;'),
-('A7','100','A B C D F E G H J K L M N O;10;'),
-('A8','100','A B C D F E G H J K L M N O;10;');
-
+('Cinema 1','100','A B C D F E G H J K L M N O;10;'),
+('Cinema 2','80','A B C D F E G H J K L M;10;'),
+('Cinema 3','100','A B C D F E G H J K L M N O;10;'),
+('Cinema 4','100','A B C D F E G H J K L M N O;10;'),
+('Cinema 5','90','A B C D F E G H J K L M N;10;'),
+('Cinema 6','100','A B C D F E G H J K L M N O;10;'),
+('Cinema 7','100','A B C D F E G H J K L M N O;10;'),
+('Cinema 8','100','A B C D F E G H J K L M N O;10;');
 -- Insert data for the table Schedules date 20 - 21 - 22 day to room A1 A2 A3 A4 A5 A6 A7 A8
 INSERT INTO Schedules(movie_id,room_id,show_date,start_time,end_time,price,schedule_room_seat) VALUE
 ('1','1','2018-07-20','08:00:00','10:00:00','45000','A B C D F E G H J K L M N O;10;'),
@@ -186,7 +186,7 @@ INSERT INTO Schedules(movie_id,room_id,show_date,start_time,end_time,price,sched
 ('1','1','2018-07-26','17:00:00','19:00:00','45000','A B C D F E G H J K L M N O;10;'),
 ('1','1','2018-07-26','19:00:00','21:00:00','45000','A B C D F E G H J K L M N O;10;'),
 ('1','1','2018-07-26','21:00:00','23:00:00','45000','A B C D F E G H J K L M N O;10;');
-
+select * from Schedules; 
 INSERT INTO Schedules(movie_id,room_id,show_date,start_time,end_time,price,schedule_room_seat) VALUE
 ('2','2','2018-07-20','08:00:00','10:15:00','45000','A B C D F E G H J K L M;10;'),
 ('2','2','2018-07-20','10:40:00','12:45:00','45000','A B C D F E G H J K L M;10;'),

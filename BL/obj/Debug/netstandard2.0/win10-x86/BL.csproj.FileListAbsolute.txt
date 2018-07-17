@@ -1,0 +1,14 @@
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/BL/bin/Debug/netstandard2.0/win10-x86/ConnectionString.txt
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/BL/bin/Debug/netstandard2.0/win10-x86/BL.deps.json
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/BL/bin/Debug/netstandard2.0/win10-x86/BL.dll
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/BL/bin/Debug/netstandard2.0/win10-x86/BL.pdb
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/BL/bin/Debug/netstandard2.0/win10-x86/DAL.dll
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/BL/bin/Debug/netstandard2.0/win10-x86/Persitence.dll
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/BL/bin/Debug/netstandard2.0/win10-x86/DAL.pdb
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/BL/bin/Debug/netstandard2.0/win10-x86/Persitence.pdb
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/BL/obj/Debug/netstandard2.0/win10-x86/BL.csproj.CoreCompileInputs.cache
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/BL/obj/Debug/netstandard2.0/win10-x86/BL.AssemblyInfoInputs.cache
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/BL/obj/Debug/netstandard2.0/win10-x86/BL.AssemblyInfo.cs
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/BL/obj/Debug/netstandard2.0/win10-x86/BL.csproj.CopyComplete
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/BL/obj/Debug/netstandard2.0/win10-x86/BL.dll
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/BL/obj/Debug/netstandard2.0/win10-x86/BL.pdb

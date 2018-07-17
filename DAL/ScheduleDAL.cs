@@ -24,10 +24,11 @@ namespace DAL {
         // Lấy ra tất cả các schedule movie trong DB.
         public List<Schedules> GetSchedules () {
             string query = "Select * from Schedules;";
-            List<Schedules> list = new List<Schedules> ();
+            List<Schedules> list = null;
             using (connection = DBHelper.OpenConnection ()) {
                 MySqlCommand cmd = new MySqlCommand (query, connection);
                 using (reader = cmd.ExecuteReader ()) {
+                    list = new List<Schedules> ();
                     while (reader.Read ()) {
                         list.Add (GetSchedule (reader));
                     }
@@ -38,11 +39,12 @@ namespace DAL {
         // Lấy ra lịch chiếu khi chuyền id của lịch.
         public Schedules GetScheduleByIdSchedule (int schedule_id) {
             string query = $"Select * from Schedules where schedule_id = '{schedule_id}';";
-            Schedules schedule = new Schedules ();
+            Schedules schedule = null;
             using (connection = DBHelper.OpenConnection ()) {
                 MySqlCommand cmd = new MySqlCommand (query, connection);
                 using (reader = cmd.ExecuteReader ()) {
                     if (reader.Read ()) {
+                        schedule = new Schedules ();
                         schedule = GetSchedule (reader);
                     }
                 }
@@ -52,10 +54,11 @@ namespace DAL {
         // Lấy ra lịch chiếu khi chuyền id của phim.
         public List<Schedules> GetScheduleByIdMovie (int movie_id) {
             string query = $"Select * from Schedules where movie_id = '{movie_id}';";
-            List<Schedules> schedule = new List<Schedules> ();
+            List<Schedules> schedule = null;
             using (connection = DBHelper.OpenConnection ()) {
                 MySqlCommand cmd = new MySqlCommand (query, connection);
                 using (reader = cmd.ExecuteReader ()) {
+                    schedule = new List<Schedules> ();
                     while (reader.Read ()) {
                         schedule.Add (GetSchedule (reader));
                     }
@@ -126,10 +129,11 @@ namespace DAL {
             string query = $"Select * from Schedules where movie_id = '{movie_id}' and show_date = '{date}' and start_time = '{start_time}' ;";
             Schedules schedule = null;
             using (connection = DBHelper.OpenConnection ()) {
-                schedule = new Schedules ();
+                // schedule = new Schedules ();
                 MySqlCommand cmd = new MySqlCommand (query, connection);
                 using (reader = cmd.ExecuteReader ()) {
                     if (reader.Read ()) {
+                        schedule = new Schedules ();
                         schedule = GetSchedule (reader);
                     }
                 }
@@ -143,10 +147,37 @@ namespace DAL {
                 return result;
             }
             using (connection = DBHelper.OpenConnection ()) {
-                string query = $"update Schedules set schedule_room_seat = '{mapSeats}' where schedule_id = {schedule.Schedule_id};";
-                MySqlCommand cmd = new MySqlCommand (query, connection);
-                if (cmd.ExecuteNonQuery () > 0) {
+
+                // string query = $"update Schedules set schedule_room_seat = '{mapSeats}' where schedule_id = {schedule.Schedule_id};";
+                // MySqlCommand cmd = new MySqlCommand (query, connection);
+                // if (cmd.ExecuteNonQuery () > 0) {
+                //     result = true;
+                // }
+
+                MySqlCommand command = connection.CreateCommand ();
+                MySqlTransaction transaction = connection.BeginTransaction ();
+                command.Connection = connection;
+                command.CommandText = "lock tables Customer write , Movies write, Rooms write ,Schedules write;";
+                command.ExecuteNonQuery ();
+                command.Transaction = transaction;
+                try {
+                    command.CommandText = $"update Schedules set schedule_room_seat = '{mapSeats}' where schedule_id = {schedule.Schedule_id};";
+                    command.ExecuteNonQuery ();
+                    transaction.Commit ();
                     result = true;
+                } catch (Exception ex) {
+                    Console.WriteLine ("Commit Exception Type: {0}", ex.GetType ());
+                    Console.WriteLine ("  Message: {0}", ex.Message);
+                    try {
+                        transaction.Rollback ();
+                    } catch (Exception ex2) {
+                        Console.WriteLine ("Rollback Exception Type: {0}", ex2.GetType ());
+                        Console.WriteLine ("  Message: {0}", ex2.Message);
+                    }
+                } finally {
+                    command.CommandText = "unlock tables;";
+                    command.ExecuteNonQuery ();
+
                 }
             }
             return result;

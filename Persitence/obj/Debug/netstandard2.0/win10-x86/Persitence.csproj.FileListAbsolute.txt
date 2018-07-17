@@ -1,0 +1,8 @@
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/Persitence/bin/Debug/netstandard2.0/win10-x86/Persitence.deps.json
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/Persitence/bin/Debug/netstandard2.0/win10-x86/Persitence.dll
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/Persitence/bin/Debug/netstandard2.0/win10-x86/Persitence.pdb
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/Persitence/obj/Debug/netstandard2.0/win10-x86/Persitence.csproj.CoreCompileInputs.cache
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/Persitence/obj/Debug/netstandard2.0/win10-x86/Persitence.AssemblyInfoInputs.cache
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/Persitence/obj/Debug/netstandard2.0/win10-x86/Persitence.AssemblyInfo.cs
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/Persitence/obj/Debug/netstandard2.0/win10-x86/Persitence.dll
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/Persitence/obj/Debug/netstandard2.0/win10-x86/Persitence.pdb

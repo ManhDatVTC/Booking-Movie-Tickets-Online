@@ -17,10 +17,11 @@ namespace DAL {
         }
         public List<Rooms> GetRooms () {
             string query = "Select * from Rooms;";
-            List<Rooms> list = new List<Rooms> ();
+            List<Rooms> list = null;
             using (connection = DBHelper.OpenConnection ()) {
                 MySqlCommand cmd = new MySqlCommand (query, connection);
                 using (reader = cmd.ExecuteReader ()) {
+                    list = new List<Rooms> ();
                     while (reader.Read ()) {
                         list.Add (GetRoom (reader));
                     }

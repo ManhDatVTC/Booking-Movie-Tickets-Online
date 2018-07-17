@@ -34,14 +34,21 @@ namespace DAL.Test {
         }
 
         [Fact]
-        public void GetMoviesByNameTest () {
+        public void TestGetMoviesByNameTrue () {
             string name = "HARRY POTTER";
             Assert.NotNull (movieDAL.getMovieByName (name));
             Assert.Equal (name, movieDAL.getMovieByName (name).Name);
         }
 
         [Fact]
-        public void GetMovieByIdTest () {
+        public void TestGetMovieByNameFail()
+        {
+            string name = "";
+            Assert.Null (movieDAL.getMovieByName (name));
+        }
+
+        [Fact]
+        public void TestGetMovieById () {
             Assert.NotNull (movieDAL.getMovieById (1));
             Assert.Equal (1, movieDAL.getMovieById (1).Movie_id);
         }

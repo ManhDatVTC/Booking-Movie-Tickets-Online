@@ -8,6 +8,7 @@ namespace DAL.Test {
     public class ScheduleDALTest {
         private static ScheduleDAL sch = new ScheduleDAL ();
         private static Movies_DAL movieDAL = new Movies_DAL ();
+        // private static Schedules schedule;
         private MySqlConnection connection;
         private MySqlDataReader reader;
 
@@ -26,8 +27,6 @@ namespace DAL.Test {
             Assert.NotNull (scheduleTop);
             Assert.NotNull (scheduleBottom);
 
-            // Assert.True (scheduleTop.Schedule_id == schedule[0].Schedule_id);
-            // Assert.True (scheduleBottom.Schedule_id == schedule[schedule.Count - 1].Schedule_id);
             Assert.True (schedule.IndexOf (scheduleBottom) == schedule.Count - 1);
             Assert.True (schedule.IndexOf (scheduleTop) == 0);
             Assert.Contains (scheduleRand, schedule);
@@ -56,31 +55,56 @@ namespace DAL.Test {
         }
 
         [Fact]
-        public void SelectTimeByMovieIDDateTimeTest () {
+        public void TestSelectTimeByMovieIdDatetimeTrue () {
             DateTime timeStart = new DateTime (2018, 7, 20, 0, 0, 0);
             string comparedatetime1 = timeStart.ToString ($"{timeStart:yyyy-MM-dd}");
             Assert.NotNull (sch.SelectTime (1, comparedatetime1));
         }
 
         [Fact]
-        public void SelectTimeByMovieIDDatetimeandTimeTest () {
+        public void TestSelectTimeByMovieIdDatetimeFail () {
+            Assert.Null (sch.SelectTime (1, ""));
+        }
+
+        [Fact]
+        public void TestSelectScheduleByDatimeMovieIdTrue () {
             DateTime timeStart = new DateTime (2018, 7, 20, 0, 0, 0);
             string comparedatetime1 = timeStart.ToString ($"{timeStart:yyyy-MM-dd}");
             TimeSpan timeSpan = new TimeSpan (8, 0, 0);
             string time = string.Format ("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
-            // Movie id , DateTime , Time =>>>   
             Assert.NotNull (sch.SelectTimeBy (1, comparedatetime1, time));
         }
         // Fail. 
-        [Fact]
-        public void SelectTimeByMovieIDDatetimeandTimeTestFail () {
+        [Theory]
+        [InlineData (1, "", "")]
+        [InlineData (1, "2018-01-21", "01:00:00")]
+        public void TestSelectScheduleByDatimeMovieIdFail (int movie_id, string datetime, string time) {
             DateTime timeStart = new DateTime (2018, 7, 20, 0, 0, 0);
-            string comparedatetime1 = timeStart.ToString ($"{timeStart:yyyy-MM-dd}");
+            datetime = timeStart.ToString ($"{timeStart:yyyy-MM-dd}");
             TimeSpan timeSpan = new TimeSpan (1, 0, 0);
-            string time = string.Format ("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
-            // Movie id , DateTime , Time =>>>   
-            Assert.False (sch.SelectTimeBy (1, comparedatetime1, time) == null);
+            Assert.False (sch.SelectTimeBy (movie_id, datetime, time) != null);
         }
+
+        [Fact]
+        public void TestAddMapSeatsTrue () {
+            Schedules schedu = new Schedules (1, 1, 1, new DateTime (2018, 7, 20), new TimeSpan (21, 0, 0), new TimeSpan (21, 0, 0), "MapSeat", 45000);
+            Assert.True (sch.AddMapSeats (schedu, "A B C D F E G H J K L M;10;"));
+        }
+
+        [Theory]
+        [InlineData (null, "")]
+        // [InlineData(new Schedules (1, 1, 1, new DateTime (2018, 7, 20), new TimeSpan (21, 0, 0), new TimeSpan (21, 0, 0), "MapSeat", 45000))]
+        public void TestAddMapSeatsFail (Schedules schedule, string MapSeat) {
+            Assert.False (sch.AddMapSeats (schedule, MapSeat));
+        }
+
+        [Fact]
+        public void TestAddMapSeatsFail1 () {
+            Schedules schedule = new Schedules (1, 1, 1, new DateTime (2018, 7, 20, 0, 0, 0), new TimeSpan (21, 0, 0), new TimeSpan (21, 0, 0), "", 45000);
+            string MapSeat = "";
+            Assert.False (sch.AddMapSeats (schedule, MapSeat));
+        }
+
         private Schedules GetScheduleExecQuery (string query) {
             Schedules sche = new Schedules ();
             using (connection = DBHelper.OpenConnection ()) {

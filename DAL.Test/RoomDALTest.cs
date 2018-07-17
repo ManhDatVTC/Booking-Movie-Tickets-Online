@@ -12,9 +12,14 @@ namespace DAL.Test {
         // private static Rooms room = new Rooms ();
 
         [Fact]
-        public void GetRoomById () {
+        public void TestGetRoomByIdTrue () {
             Assert.NotNull (roomDAL.GetRoomById (1));
             Assert.Equal (1, roomDAL.GetRoomById (1).Room_id);
+        }
+        [Fact]
+        public void TestGetRoomByIdFail()
+        {
+            Assert.Null (roomDAL.GetRoomById (0));
         }
 
         [Fact]

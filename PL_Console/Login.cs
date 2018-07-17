@@ -50,15 +50,17 @@ namespace PL_Console {
                 }
             }
         }
-        class LoginCinema {
+        public class LoginCinema {
+            private static string Email;
+            private static string password;
             public void Login () {
                 while (true) {
                     Console.WriteLine ("=============================================================");
                     Console.WriteLine ("-------------------  Đăng Nhập ");
                     Console.WriteLine ("=============================================================");
                     Customer_Bl ad = new Customer_Bl ();
-                    string Email;
-                    string password;
+                    // string Email;
+                    // string password;
                     while (true) {
                         Console.Write ("- Nhập Email          : ");
                         Email = Console.ReadLine ();
@@ -85,14 +87,14 @@ namespace PL_Console {
                         if (CheckNotSpecialCharacters (Email, password) == true) {
                             break;
                         } else {
-                            CheckLoginSuccessOrFailure (0);
+                            CheckLoginSuccessOrFailure (0, Email, password);
                         }
                     }
                     int count = 0;
                     if (ad.Login (Email, password) != null) {
                         count++;
                     }
-                    CheckLoginSuccessOrFailure (count);
+                    CheckLoginSuccessOrFailure (count, Email, password);
                 }
 
             }
@@ -104,7 +106,7 @@ namespace PL_Console {
                 return true;
             }
 
-            private static void CheckLoginSuccessOrFailure (int count) {
+            private static void CheckLoginSuccessOrFailure (int count, string Email, string password) {
                 if (count != 1) {
                     Console.Clear ();
                     Console.WriteLine ("-------------------------------------------------------------");
@@ -141,11 +143,17 @@ namespace PL_Console {
                         }
                     }
                 } else {
-                    // CinemaInterface cinema = new CinemaInterface ();
+                    // Customer_Bl cus = new Customer_Bl ();
+                    // GetCustomerID (cus.Login (Email, password).Customer_id);
                     CinemaInterface.Cinema ();
                     Console.WriteLine ("-------------------------------------------------------------");
                     return;
                 }
+            }
+            public static Customer GetCustomer () {
+                Customer_Bl cus = new Customer_Bl ();
+                Customer customer = cus.Login (Email, password);
+                return customer;
             }
         }
     }

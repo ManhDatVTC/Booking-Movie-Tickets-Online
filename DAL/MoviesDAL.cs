@@ -22,10 +22,11 @@ namespace DAL {
         }
         public List<Movies> GetMovies () {
             string query = "Select * from Movies;";
-            List<Movies> list = new List<Movies> ();
+            List<Movies> list = null;
             using (connection = DBHelper.OpenConnection ()) {
                 MySqlCommand cmd = new MySqlCommand (query, connection);
                 using (reader = cmd.ExecuteReader ()) {
+                    list = new List<Movies> ();
                     while (reader.Read ()) {
                         list.Add (GetMovie (reader));
                     }
@@ -35,12 +36,16 @@ namespace DAL {
         }
 
         public Movies getMovieByName (string Name) {
+            if (Name == "") {
+                return null;
+            }
             string query = $"SELECT * FROM Movies WHERE movie_name= '{Name}';";
-            Movies movie = new Movies ();
+            Movies movie = null;
             using (connection = DBHelper.OpenConnection ()) {
                 MySqlCommand cmd = new MySqlCommand (query, connection);
                 using (reader = cmd.ExecuteReader ()) {
                     if (reader.Read ()) {
+                        movie = new Movies ();
                         movie = GetMovie (reader);
                     }
                 }
@@ -49,11 +54,12 @@ namespace DAL {
         }
         public Movies getMovieById (int id) {
             string query = $"SELECT * FROM Movies WHERE movie_id= '{id}';";
-            Movies movie = new Movies ();
+            Movies movie = null;
             using (connection = DBHelper.OpenConnection ()) {
                 MySqlCommand cmd = new MySqlCommand (query, connection);
                 using (reader = cmd.ExecuteReader ()) {
                     if (reader.Read ()) {
+                        movie = new Movies ();
                         movie = GetMovie (reader);
                     }
                 }
