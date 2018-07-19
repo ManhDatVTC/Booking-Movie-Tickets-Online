@@ -13,7 +13,7 @@ namespace DAL.Test {
         private MySqlDataReader reader;
 
         [Fact]
-        public void GetSchedulesTest () {
+        public void TestGetSchedules () {
             List<Schedules> schedule = sch.GetSchedules ();
             string query = $"select * from Schedules order by rand() limit 1 ;";
             Schedules scheduleRand = GetScheduleExecQuery (query);
@@ -86,7 +86,7 @@ namespace DAL.Test {
         }
 
         [Fact]
-        public void TestAddMapSeatsTrue () {
+        public void TestAddMapSeatsForScheduleTrue () {
             Schedules schedu = new Schedules (1, 1, 1, new DateTime (2018, 7, 20), new TimeSpan (21, 0, 0), new TimeSpan (21, 0, 0), "MapSeat", 45000);
             Assert.True (sch.AddMapSeats (schedu, "A B C D F E G H J K L M;10;"));
         }

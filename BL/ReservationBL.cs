@@ -6,8 +6,8 @@ using Persitence;
 namespace BL {
     public class ReservationBL {
         private ReservationDAL reser = new ReservationDAL ();
-        public List<Reservation> GetReservationByCustomerId (int ? Customer_id) {
-            if (Customer_id == null || Customer_id == 0) {
+        public List<Reservation> GetReservationByCustomerId (int  Customer_id) {
+            if ( Customer_id == 0) {
                 return null;
             }
             return reser.GetReservationByCustomerId (Customer_id);

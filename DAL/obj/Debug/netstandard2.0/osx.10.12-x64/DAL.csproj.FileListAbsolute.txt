@@ -1,0 +1,12 @@
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/DAL/bin/Debug/netstandard2.0/osx.10.12-x64/ConnectionString.txt
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/DAL/bin/Debug/netstandard2.0/osx.10.12-x64/DAL.deps.json
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/DAL/bin/Debug/netstandard2.0/osx.10.12-x64/DAL.dll
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/DAL/bin/Debug/netstandard2.0/osx.10.12-x64/DAL.pdb
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/DAL/bin/Debug/netstandard2.0/osx.10.12-x64/Persitence.dll
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/DAL/bin/Debug/netstandard2.0/osx.10.12-x64/Persitence.pdb
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/DAL/obj/Debug/netstandard2.0/osx.10.12-x64/DAL.csproj.CoreCompileInputs.cache
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/DAL/obj/Debug/netstandard2.0/osx.10.12-x64/DAL.AssemblyInfoInputs.cache
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/DAL/obj/Debug/netstandard2.0/osx.10.12-x64/DAL.AssemblyInfo.cs
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/DAL/obj/Debug/netstandard2.0/osx.10.12-x64/DAL.csproj.CopyComplete
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/DAL/obj/Debug/netstandard2.0/osx.10.12-x64/DAL.dll
+/Users/valentino/Desktop/Booking-Movie-Tickets-Online/DAL/obj/Debug/netstandard2.0/osx.10.12-x64/DAL.pdb

@@ -12,7 +12,7 @@ namespace DAL.Test {
         private MySqlDataReader reader;
 
         [Fact]
-        public void GetMoviesTest () {
+        public void TestGetMoviesDAL () {
             List<Movies> movies = new List<Movies> ();
             movies = movieDAL.GetMovies ();
             string query = $"select * from Movies order by rand() limit 1 ;";
