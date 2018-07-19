@@ -29,7 +29,7 @@ namespace PL_Console {
                     case 2:
                         Console.Clear ();
                         CustomerInformation ();
-                        Console.WriteLine ("Nhập <Enter> để trở lại.");
+                        Console.Write ("Nhập <Enter> để trở lại.");
                         Console.ReadLine ();
                         break;
                     case 3:
@@ -54,7 +54,7 @@ namespace PL_Console {
         public void HistoryBookingTicket () {
             ReservationBL reser = new ReservationBL ();
             List<Reservation> list = reser.GetReservationByCustomerId (UserInterface.LoginCinema.GetCustomer ().Customer_id);
-            if (list == null) {
+            if (list == null ) {
                 Console.WriteLine ("Bạn chưa có giao dịch nào gần đây ! Đặt vé ngay bạn nhé.");
                 Console.WriteLine ("Nhập <Enter> để trở lại.");
                 return;
@@ -102,7 +102,7 @@ namespace PL_Console {
                     return;
                 }
                 ChoiceMapSeats.InformationTickets (list[number - 1], 1);
-                Console.WriteLine ("                   Nhập <Enter> để trở lại.");
+                Console.Write ("                   Nhập <Enter> để trở lại.");
                 Console.ReadLine ();
                 return;
             }

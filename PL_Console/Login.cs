@@ -46,6 +46,7 @@ namespace PL_Console {
                 if (i != 2) {
                     Console.WriteLine ($"{i+1}. {menu[i]}");
                 } else {
+                    Console.WriteLine ("-------------------------------------------------------------");
                     Console.Write ($"{menu[i]}");
                 }
             }

@@ -158,12 +158,16 @@ namespace PL_Console {
             foreach (var item in choicedSeat) {
                 choiced = choiced + " " + item;
             }
+            Random random = new Random ();
+            int randomNumber = random.Next (0, 100000000);
             Reservation reser = new Reservation ();
             reser.Reservation_id = 0;
             reser.Schedule_id = schedule.Schedule_id;
             reser.Customer_id = UserInterface.LoginCinema.GetCustomer ().Customer_id;
             reser.Seats = choiced;
+            reser.Code_ticket = randomNumber;
             reser.Price = PaymentFareSeat (choicedSeat);
+            string a = Tien (PaymentFareSeat (choicedSeat).ToString ());
 
             string time = $"{start1} - {end1}";
             Console.Clear ();
@@ -172,22 +176,32 @@ namespace PL_Console {
             Console.WriteLine ($"                     –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––");
             Console.WriteLine ($"                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
             Console.WriteLine ($"                    |                                                                       |");
-            Console.WriteLine ($"                    |  Tên Phim          :   {string.Format ($"{informatin.Name,-25}")}                      |");
+            Console.WriteLine ($"                    |  Tên Phim          :   {string.Format ($"{informatin.Name,-47}")}|");
             Console.WriteLine ($"                    |                                                                       |");
-            Console.WriteLine ($"                    |  Phòng Chiếu       :   {string.Format ($"{infor.Name,-25}")}                      |");
+            Console.WriteLine ($"                    |  Phòng Chiếu       :   {string.Format ($"{infor.Name,-47}")}|");
             Console.WriteLine ($"                    |                                                                       |");
-            Console.WriteLine ($"                    |  Ngày Chiếu        :   {string.Format ($"{datetime,-25}")}                      |");
+            Console.WriteLine ($"                    |  Ngày Chiếu        :   {string.Format ($"{datetime,-47}")}|");
             Console.WriteLine ($"                    |                                                                       |");
-            Console.WriteLine ($"                    |  Lịch Chiếu        :   {string.Format ($"{time,-25}")}                      |");
+            Console.WriteLine ($"                    |  Lịch Chiếu        :   {string.Format ($"{time,-47}")}|");
             Console.WriteLine ($"                    |                                                                       |");
-            Console.WriteLine ($"                    |  Ghế Ngồi          :  {string.Format ($"{choiced,-25}")}                       |");
+            Console.WriteLine ($"                    |  Ghế Ngồi          :   {string.Format ($"{choiced,-47}")}|");
             Console.WriteLine ($"                    |                                                                       |");
-            Console.WriteLine ($"                    |  Giá Tiền          :   {string.Format ($"{PaymentFareSeat (choicedSeat),-25}")}                      |");
+            Console.WriteLine ($"                    |  Giá Tiền          :   {string.Format ($"{a,-47}")}|");
             Console.WriteLine ($"                    |                                                                       |");
             Console.WriteLine ($"                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
             Console.WriteLine ($"                     _______________________________________________________________________");
             YNChoice (choicedSeat, schedule, map, reser);
 
+        }
+        public static string Tien (string XXX) {
+            string KetQua = "";
+            int DoDai = XXX.Length;
+            for (int i = DoDai - 1; i > -1; i--) {
+                KetQua = XXX[i] + KetQua;
+                if ((DoDai - i == 3 && DoDai > 3) || (DoDai - i == 6 && DoDai > 6))
+                    KetQua = "," + KetQua;
+            }
+            return KetQua;
         }
         //     Phương thức PaymentFareSeat tính tiền các ghế khánh hàng lựa chọn, !!!
 
@@ -223,8 +237,8 @@ namespace PL_Console {
             RoomBL room = new RoomBL ();
             Rooms ro = room.GetRoomById (schedule.Room_id);
             // string time = $"{start1} - {end1}";
-            Random random = new Random ();
-            int randomNumber = random.Next (0, 100000000);
+            // Random random = new Random ();
+            // int randomNumber = random.Next (0, 100000000);
             string timeshow = ShowDay (schedule.Show_date, schedule.Start_time, schedule.End_time);
             // DateTime.Now
             // UserInterface.LoginCinema.GetCustomer ().Name;
@@ -237,14 +251,20 @@ namespace PL_Console {
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |   • Mẫu số : 01/VE2/003                   Ký Hiệu  : MT/17T                  |");
             Console.WriteLine ($"                   |                                                                              |");
-            Console.WriteLine ($"                   |   • Số vé : {randomNumber,-6}                    MST : 0303675393-001                 |");
+            Console.WriteLine ($"                   |   • Số vé : {res.Code_ticket,-6}                    MST : 0303675393-001                 |");
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |  CÔNG TY TNHH CINEMA MẠNH ĐẠT - CHI NHÁNH HÀ NỘI                             |");
             Console.WriteLine ($"                   |  Toà nhà VTC, Số 18 phường Tam Trinh quận Hai Bà Trưng, thành phố Hà Nội     |");
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |  ............................................................................|");
             Console.WriteLine ($"                   |                                                                              |");
-            Console.WriteLine ($"                   |   CIMENA THẾ GIỚI {DateTime.Now} BOX1 ONLINE                            |");
+            if (count == 0)
+            {
+                Console.WriteLine ($"                   |   CIMENA THẾ GIỚI {DateTime.Now} BOX1 ONLINE                            |");
+            }else
+            {
+                Console.WriteLine ($"                   |   CIMENA THẾ GIỚI {res.Create_on} BOX1 ONLINE                            |");   
+            }
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |  ============================================================================|");
             Console.WriteLine ($"                   |                                                                              |");
@@ -256,12 +276,11 @@ namespace PL_Console {
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |  ============================================================================|");
             Console.WriteLine ($"                   |                                                                              |");
-            Console.WriteLine ($"                   |   √ Giá Tiền                                   VND   {res.Price,-15}         | ");
+            Console.WriteLine ($"                   |   √ Giá Tiền                                   VND   {Tien(res.Price.ToString()),-15}         | ");
             Console.WriteLine ($"                   |                                                (Đã bao gồm 5% VAT)           |");
             Console.WriteLine ($"                   ++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-++++");
-
+            Console.WriteLine ($"                     ____________________________________________________________________________");
             if (count == 0) {
-                Console.WriteLine ($"                     ____________________________________________________________________________");
                 Console.WriteLine ();
                 Console.WriteLine ($"                          #: Vui lòng nhớ số điện thoại và số vé để đối chiếu                    ");
                 Console.WriteLine ($"                          #: Quý khánh vui lòng đến trước suất chiếu 15 phút để lấy vé           ");
@@ -402,12 +421,12 @@ namespace PL_Console {
                     case 'Y':
                         reser.InsertIntoReservation (res);
                         schedule.BuySeats (sch, map);
-                        InformationTickets (res,0);
+                        InformationTickets (res, 0);
                         break;
                     case 'y':
                         reser.InsertIntoReservation (res);
                         schedule.BuySeats (sch, map);
-                        InformationTickets (res,0);
+                        InformationTickets (res, 0);
                         break;
                     case 'N':
                         ComeBackMenu (sch, 0);
@@ -435,7 +454,7 @@ namespace PL_Console {
 
                 }
                 if (count == 1) {
-                    Console.WriteLine ("\n                          1. Đặt thêm vé xem phim.\n\n                          2. Quay Lại Menu Chính");
+                    Console.WriteLine ("\n                          1. Đặt thêm vé cho bộ phim khác.\n\n                          2. Quay Lại Menu Chính");
 
                 }
                 Console.WriteLine ("                    ------------------------------------------------------------------------------");
