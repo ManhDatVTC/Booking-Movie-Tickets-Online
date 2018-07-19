@@ -59,7 +59,6 @@ namespace PL_Console {
                     Console.WriteLine ("=============================================================");
                     Console.WriteLine ("-------------------  Đăng Nhập ");
                     Console.WriteLine ("=============================================================");
-                    Customer_Bl ad = new Customer_Bl ();
                     // string Email;
                     // string password;
                     while (true) {
@@ -92,6 +91,7 @@ namespace PL_Console {
                         }
                     }
                     int count = 0;
+                    Customer_Bl ad = new Customer_Bl ();
                     if (ad.Login (Email, password) != null) {
                         count++;
                     }
