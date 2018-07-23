@@ -68,9 +68,10 @@ namespace DAL.Test {
 
         [Fact]
         public void TestSelectScheduleByDatimeMovieIdTrue () {
-            DateTime timeStart = new DateTime (2018, 7, 20, 0, 0, 0);
+            // 2018-08-01
+            DateTime timeStart = new DateTime (2018, 08, 01, 0, 0, 0);
             string comparedatetime1 = timeStart.ToString ($"{timeStart:yyyy-MM-dd}");
-            TimeSpan timeSpan = new TimeSpan (8, 0, 0);
+            TimeSpan timeSpan = new TimeSpan (21, 30, 0);
             string time = string.Format ("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
             Assert.NotNull (sch.SelectTimeBy (1, comparedatetime1, time));
         }

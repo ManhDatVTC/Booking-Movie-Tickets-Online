@@ -22,30 +22,57 @@ namespace PL_Console {
                 List<string> succer = new List<string> ();
                 string[] seated = mapArr[2].Split (",");
                 succer = AddlistByMapSeat (succer, seated);
-                ShowSeatChoice (rowsArr, cols, seated, choicedSeat, schedule);
+                // -------------- Map not
+                RoomBL room = new RoomBL ();
+                Rooms ro = room.GetRoomById (schedule.Room_id);
+                string map_ = ro.Chaire_not_placed;
+                string[] map_chaire_not_placed = map_.Split (",");
+
+                // -----------------------------------
+                ShowSeatChoice (rowsArr, cols, seated, choicedSeat, schedule, map_chaire_not_placed);
+                Console.WriteLine ("\n        0. Quay lại.");
+                Console.WriteLine ("\n        *: Nhập số số ghế theo định dạng A1, A2, A3 để chọn ghế.");
+                Console.WriteLine ("\n     _______________________________________________________________________________________________");
                 string choice;
                 string[] choiced;
                 // Cho khánh hàng nhập các ghế mà khách hàng muốn chọn, Phải nhập đúng định dạng thì mới được break ra khỏi While(true). 
                 while (true) {
                     Console.Write ("\n        •√ Bạn chọn ghế :");
                     choice = Console.ReadLine ().Trim ().ToUpper ();
+                    if (choice == "0") {
+                        BookingTicker tick = new BookingTicker ();
+                        tick.MenuBookingTicker ();
+                        return;
+                    }
+                    try {
+                        if (choice[choice.Length - 1] == ',') {
+                            choice = choice.Remove (choice.Length - 1, 1);
+                        }
+                    } catch (System.Exception) { }
                     choiced = choice.Split (",");
                     if (CheckInsertIntoChoice (choiced) == true) {
                         break;
                     } else {
                         Console.Clear ();
-                        ShowSeatChoice (rowsArr, cols, seated, choicedSeat, schedule);
-                        Console.WriteLine ("\n        #: Bạn đã nhập sai định dạng ghế VD : A1, A2, A3. Vui lòng nhập lại!!");
+                        ShowSeatChoice (rowsArr, cols, seated, choicedSeat, schedule, map_chaire_not_placed);
+                        Console.WriteLine ("\n        #: Bạn đã nhập sai định dạng ghế VD : A1, A2, A3. Vui lòng nhập lại!! Hoặc chọn 0 để thoát");
                     }
                 }
                 string test = "";
-                test = CheckSeatInSchedule (choiced, succer, test, rowsArr, cols);
+                test = CheckSeatInSchedule (choiced, succer, test, rowsArr, cols, map_chaire_not_placed);
+                // for (int i = 0; i < map_chaire_not_placed.Length; i++) {
+                //     for (int k = 0; k < choiced.Length; k++) {
+                //         if (map_chaire_not_placed[i].Equals (choiced[k])) {
+                //             test = test + " " + map_chaire_not_placed[i];
+                //         }
+                //     }
+                // }
                 if (test != "") {
                     Console.Clear ();
-                    Console.WriteLine ("\n-----------------------------------------------------------------------------------------------");
-                    Console.WriteLine ("    #: Ghế " + test + " mà bạn chọn không có trong danh sách hoặc đã được đặt rồi. ");
-                    Console.WriteLine ("       Vui lòng chọn lại ghế hoặc thoát");
-                    Console.WriteLine ("\n-----------------------------------------------------------------------------------------------");
+                    Console.WriteLine ("\n                    -------------------------------------------------------------------------------");
+                    Console.WriteLine ("                          #: Ghế " + test + " mà bạn chọn không có trong danh sách hoặc đã được đặt rồi. ");
+                    Console.WriteLine ("                             Vui lòng chọn lại ghế hoặc thoát");
+                    Console.WriteLine ("\n                    -------------------------------------------------------------------------------");
                     ComeBackMenu (scheduleUp, 0);
                     return;
                 }
@@ -63,10 +90,10 @@ namespace PL_Console {
                     }
                 }
 
-                ShowSeatChoice (rowsArr, cols, seated, choicedSeat, schedule);
+                ShowSeatChoice (rowsArr, cols, seated, choicedSeat, schedule, map_chaire_not_placed);
                 ChoiceBookingAndContinue ();
                 if (checkedSeat != "") {
-                    Console.WriteLine ("Bạn vừa chọn ghế " + checkedSeat + " này rồi ! ");
+                    Console.WriteLine ("             Bạn vừa chọn ghế " + checkedSeat + " này rồi ! ");
                 }
                 Console.Write ("\n             #Chọn : ");
                 int number;
@@ -74,13 +101,13 @@ namespace PL_Console {
                     bool isINT = Int32.TryParse (Console.ReadLine (), out number);
                     if (!isINT) {
                         Console.Clear ();
-                        ShowSeatChoice (rowsArr, cols, seated, choicedSeat, schedule);
+                        ShowSeatChoice (rowsArr, cols, seated, choicedSeat, schedule, map_chaire_not_placed);
                         ChoiceBookingAndContinue ();
                         Console.WriteLine ("\n             • Giá trị sai vui lòng nhập lại.");
                         Console.Write ("\n             #Chọn : ");
                     } else if (number < 0 || number > 2) {
                         Console.Clear ();
-                        ShowSeatChoice (rowsArr, cols, seated, choicedSeat, schedule);
+                        ShowSeatChoice (rowsArr, cols, seated, choicedSeat, schedule, map_chaire_not_placed);
                         ChoiceBookingAndContinue ();
                         Console.WriteLine ("\n             • Giá trị sai vui lòng nhập lại 1 hoặc 2. ");
                         Console.Write ("\n             #Chọn : ");
@@ -101,6 +128,9 @@ namespace PL_Console {
                         break;
                 }
             }
+
+        }
+        public static void CheckSeats () {
 
         }
         // Lay du lieu tu Database rồi add vào List Succer.
@@ -124,7 +154,7 @@ namespace PL_Console {
             return true;
         }
         // Kiểm tra xem ghế mà khánh hàng chọn có trong danh sách ghế trong database hay không ?
-        public static string CheckSeatInSchedule (string[] choiced, List<string> succer, string test, string[] rowsArr, int cols) {
+        public static string CheckSeatInSchedule (string[] choiced, List<string> succer, string test, string[] rowsArr, int cols, string[] map_chaire_not_placed) {
             for (int i = 0; i < choiced.Length; i++) {
                 if (succer.FindIndex (x => x == choiced[i]) != -1) {
                     test = test + choiced[i];
@@ -137,6 +167,12 @@ namespace PL_Console {
                             dem++;
                         }
                     }
+                }
+                for (int k = 0; k < map_chaire_not_placed.Length; k++) {
+                    if (map_chaire_not_placed[k].Equals (choiced[i])) {
+                        test = test + " " + map_chaire_not_placed[k];
+                    }
+
                 }
                 if (dem == 0) {
                     test = test + " " + choiced[i];
@@ -155,24 +191,24 @@ namespace PL_Console {
             string end1 = string.Format ("{0:D2}:{1:D2}", schedule.End_time.Hours, schedule.End_time.Minutes);
             string datetime = string.Format ($"{schedule.Show_date:dd/MM/yyyy}");
             string choiced = "";
-            foreach (var item in choicedSeat) {
-                choiced = choiced + " " + item;
-            }
             Random random = new Random ();
             int randomNumber = random.Next (0, 100000000);
             Reservation reser = new Reservation ();
             reser.Reservation_id = 0;
             reser.Schedule_id = schedule.Schedule_id;
             reser.Customer_id = UserInterface.LoginCinema.GetCustomer ().Customer_id;
-            reser.Seats = choiced;
+            foreach (var item in choicedSeat) {
+                choiced = choiced + " " + item;
+            }
+            reser.Seats = choiced.Trim ();
             reser.Code_ticket = randomNumber;
             reser.Price = PaymentFareSeat (choicedSeat);
-            string a = Tien (PaymentFareSeat (choicedSeat).ToString ());
+            string a = Tien (PaymentFareSeat (choicedSeat).ToString ()) + "   VND";
 
             string time = $"{start1} - {end1}";
             Console.Clear ();
             Console.WriteLine ($"                      √√√√√ Rạp chiếu phim thế giới.\n");
-            Console.WriteLine ($"                      Thông tin vé !");
+            Console.WriteLine ($"                      Thông tin vé đặt trước  !");
             Console.WriteLine ($"                     –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––");
             Console.WriteLine ($"                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
             Console.WriteLine ($"                    |                                                                       |");
@@ -184,9 +220,25 @@ namespace PL_Console {
             Console.WriteLine ($"                    |                                                                       |");
             Console.WriteLine ($"                    |  Lịch Chiếu        :   {string.Format ($"{time,-47}")}|");
             Console.WriteLine ($"                    |                                                                       |");
-            Console.WriteLine ($"                    |  Ghế Ngồi          :   {string.Format ($"{choiced,-47}")}|");
+            Console.Write ($"                    |  Ghế Ngồi          :   ");
+            int count = 0;
+            for (int i = 0; i < choicedSeat.Count; i++) {
+                count++;
+                Console.Write ($"{choicedSeat[i]} :  {Tien(PaymentFare(choicedSeat[i]).ToString())} VND    ");
+                if (count == 2) count = 0;
+                if ((i + 1) % 2 == 0) Console.Write ("       |\n                    |                        ");
+            }
+            if (count == 1) {
+                Console.WriteLine ("                           |");
+            } else {
+                Console.WriteLine ("                                               |");
+            }
+            // Console.Write ("|\n");
+            // Console.WriteLine ($"                    |  Ghế Ngồi          :   {string.Format ($"{choiced,-47}")}|");
             Console.WriteLine ($"                    |                                                                       |");
-            Console.WriteLine ($"                    |  Giá Tiền          :   {string.Format ($"{a,-47}")}|");
+            Console.WriteLine ($"                    |-----------------------------------------------------------------------|");
+            Console.WriteLine ($"                    |                                                                       |");
+            Console.WriteLine ($"                    |  Tổng Tiền         :   {string.Format ($"{a,-47}")}|");
             Console.WriteLine ($"                    |                                                                       |");
             Console.WriteLine ($"                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
             Console.WriteLine ($"                     _______________________________________________________________________");
@@ -207,10 +259,11 @@ namespace PL_Console {
 
         public static double PaymentFareSeat (List<string> choicedSeat) {
             PriceSeatsBl price = new PriceSeatsBl ();
-            string seat = "F3,F4,F5,F6,F7,F8,E3,E4,E5,E6,E7,E8,G3,G4,G5,G6,G7,G8,H3,H4,H5,H6,H7,H8,J3,J4,J5,J6,J7,J8,K3,K4,K5,K6,K7,K8,L3,L4,L5,L6,L7,L8";
+            string seat = "D3,D4,D5,D6,D7,D8,E3,E4,E5,E6,E7,E8,F3,F4,F5,F6,F7,F8,G3,G4,G5,G6,G7,G8,H3,H4,H5,H6,H7,H8,I3,I4,I5,I6,I7,I8,J3,J4,J5,J6,J7,J8,K3,K4,K5,K6,K7,K8";
             string[] mapArr = seat.Split (",");
             double Payment = 0;
-            foreach (var item in choicedSeat) {
+
+            foreach (string item in choicedSeat) {
                 int count = 0;
                 for (int i = 0; i < mapArr.Length; i++) {
                     if (item == mapArr[i]) {
@@ -218,52 +271,60 @@ namespace PL_Console {
                         count++;
                         break;
                     }
+                    if (count == 1) break;
                 }
-                if (count == 0) {
-                    Payment = Payment + price.GetPriceSeatByPrice_Id (1).Price;
+                string a = item;
+                if (a.Trim () == "") count++;
+                if (count == 0) Payment = Payment + price.GetPriceSeatByPrice_Id (1).Price;
+            }
+            return Payment;
+        }
+        public static double PaymentFare (string seats) {
+            PriceSeatsBl price = new PriceSeatsBl ();
+            string seat = "D3,D4,D5,D6,D7,D8,E3,E4,E5,E6,E7,E8,F3,F4,F5,F6,F7,F8,G3,G4,G5,G6,G7,G8,H3,H4,H5,H6,H7,H8,I3,I4,I5,I6,I7,I8,J3,J4,J5,J6,J7,J8,K3,K4,K5,K6,K7,K8";
+            string[] mapArr = seat.Split (",");
+            double Payment = 0;
+            int count = 0;
+            for (int i = 0; i < mapArr.Length; i++) {
+                if (seats == mapArr[i]) {
+                    Payment = Payment + price.GetPriceSeatByPrice_Id (2).Price;
+                    count++;
+                    break;
                 }
             }
+            if (count == 0) { Payment = Payment + price.GetPriceSeatByPrice_Id (1).Price; }
             return Payment;
         }
 
         public static void InformationTickets (Reservation res, int count) {
             ScheduleBL sch = new ScheduleBL ();
             Schedules schedule = sch.GetScheduleByIdSchedule (res.Schedule_id);
-            // string start1 = string.Format ("{0:D2}:{1:D2}", schedule.Start_time.Hours, schedule.Start_time.Minutes);
-            // string end1 = string.Format ("{0:D2}:{1:D2}", schedule.End_time.Hours, schedule.End_time.Minutes);
-            // string datetime = string.Format ($"{schedule.Show_date:dd/MM/yyyy}");
             MoviesBL movie = new MoviesBL ();
             Movies informatin = movie.getMovieById (schedule.Movie_id);
             RoomBL room = new RoomBL ();
             Rooms ro = room.GetRoomById (schedule.Room_id);
-            // string time = $"{start1} - {end1}";
-            // Random random = new Random ();
-            // int randomNumber = random.Next (0, 100000000);
             string timeshow = ShowDay (schedule.Show_date, schedule.Start_time, schedule.End_time);
-            // DateTime.Now
-            // UserInterface.LoginCinema.GetCustomer ().Name;
+
             Console.Clear ();
             Console.WriteLine ($"                   ++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-++++");
-            Console.WriteLine ($"                   |                           √√ VÉ XEM PHIM √√                                  |");
+            Console.WriteLine ($"                   |                           √√ VÉ ĐẶT TRƯỚC √√                                 |");
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |                                                                              |");
-            Console.WriteLine ($"                   |   • Khánh Hàng : {String.Format(UserInterface.LoginCinema.GetCustomer ().Name),-20}   SĐT {String.Format(UserInterface.LoginCinema.GetCustomer ().Phone),-32} |");
+            Console.WriteLine ($"                   |   • Khánh Hàng : {String.Format(UserInterface.LoginCinema.GetCustomer ().Name),-20}  • SĐT {String.Format(UserInterface.LoginCinema.GetCustomer ().Phone),-31} |");
             Console.WriteLine ($"                   |                                                                              |");
-            Console.WriteLine ($"                   |   • Mẫu số : 01/VE2/003                   Ký Hiệu  : MT/17T                  |");
+            Console.WriteLine ($"                   |   • Mẫu số : 01/VE2/003                • Ký Hiệu  : MT/17T                   |");
             Console.WriteLine ($"                   |                                                                              |");
-            Console.WriteLine ($"                   |   • Số vé : {res.Code_ticket,-6}                    MST : 0303675393-001                 |");
+            Console.WriteLine ($"                   |   • Số vé : {res.Code_ticket,-6}                   • MST : 0303675393-001                |");
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |  CÔNG TY TNHH CINEMA MẠNH ĐẠT - CHI NHÁNH HÀ NỘI                             |");
             Console.WriteLine ($"                   |  Toà nhà VTC, Số 18 phường Tam Trinh quận Hai Bà Trưng, thành phố Hà Nội     |");
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |  ............................................................................|");
             Console.WriteLine ($"                   |                                                                              |");
-            if (count == 0)
-            {
+            if (count == 0) {
                 Console.WriteLine ($"                   |   CIMENA THẾ GIỚI {DateTime.Now} BOX1 ONLINE                            |");
-            }else
-            {
-                Console.WriteLine ($"                   |   CIMENA THẾ GIỚI {res.Create_on} BOX1 ONLINE                            |");   
+            } else {
+                Console.WriteLine ($"                   |   CIMENA THẾ GIỚI {res.Create_on} BOX1 ONLINE                            |");
             }
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |  ============================================================================|");
@@ -272,7 +333,22 @@ namespace PL_Console {
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |   √ Thời gian chiếu :   {string.Format ($"{timeshow,-53}")}|");
             Console.WriteLine ($"                   |                                                                              |");
-            Console.WriteLine ($"                   |   √ Rạp : {string.Format ($"{ro.Name,8}")}     Ghế {string.Format ($"{res.Seats,-50}")}|");
+
+            Console.Write ($"                   |   √ Phòng chiếu     : {string.Format ($"{ro.Name,-6}")}    Ghế   ");
+            string[] arraySeat = res.Seats.Trim ().Split (" ");
+            int dem = 0;
+            for (int i = 0; i < arraySeat.Length; i++) {
+                dem++;
+                Console.Write ($"{arraySeat[i]} :  {Tien(PaymentFare(arraySeat[i]).ToString())} VND  ");
+                if (dem == 2) dem = 0;
+                if ((i + 1) % 2 == 0) Console.Write ("   |\n                   |                                       ");
+            }
+            
+            if (dem == 1) {
+                Console.WriteLine ("                     |");
+            } else {
+                Console.WriteLine ("                                       |");
+            }
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |  ============================================================================|");
             Console.WriteLine ($"                   |                                                                              |");
@@ -313,7 +389,7 @@ namespace PL_Console {
         }
 
         // ----- Show Information Seats . Seat selecting and Seat have been selected.
-        public static void ShowSeatChoice (string[] rowsArr, int cols, string[] seated, List<string> choicedSeat, Schedules schedule) {
+        public static void ShowSeatChoice (string[] rowsArr, int cols, string[] seated, List<string> choicedSeat, Schedules schedule, string[] map_chaire_not_placed) {
             Console.Clear ();
             MoviesBL movie = new MoviesBL ();
             Movies informatin = movie.getMovieById (schedule.Movie_id);
@@ -341,17 +417,42 @@ namespace PL_Console {
                     }
                     string seat = rowsArr[i] + j;
                     bool flag = true;
-                    if (i < 4 || i > 10 || j < 3 || j > 8) {
+                    if (i < 3 || i > 10 || j < 3 || j > 8) {
                         for (int k = 0; k < seated.Length; k++) {
                             if (seat == seated[k]) {
-                                string format = string.Format ($"[_√√_]  ");
+                                string format1 = "";
+                                if (seated[k].Length == 3) {
+                                    format1 = "[_√√_] ";
+                                } else {
+                                    format1 = "[_√√_]";
+                                }
+                                string format = string.Format ($"{format1}  ");
                                 Console.Write (format);
                                 flag = false;
                             }
                         }
                         for (int k = 0; k < choicedSeat.Count; k++) {
                             if (seat == choicedSeat[k]) {
-                                string format = string.Format ($"[^﹏^]  ");
+                                string format1 = "";
+                                if (choicedSeat[k].Length == 3) {
+                                    format1 = "[^﹏^] ";
+                                } else {
+                                    format1 = "[^﹏^]";
+                                }
+                                string format = string.Format ($"{format1}  ");
+                                Console.Write (format);
+                                flag = false;
+                            }
+                        }
+                        for (int k = 0; k < map_chaire_not_placed.Length; k++) {
+                            if (seat == map_chaire_not_placed[k]) {
+                                string format1 = "";
+                                if (map_chaire_not_placed[k].Length == 3) {
+                                    format1 = "       ";
+                                } else {
+                                    format1 = "      ";
+                                }
+                                string format = string.Format ($"{format1}  ");
                                 Console.Write (format);
                                 flag = false;
                             }
@@ -362,14 +463,39 @@ namespace PL_Console {
                     } else {
                         for (int k = 0; k < seated.Length; k++) {
                             if (seat == seated[k]) {
-                                string format = string.Format ($"[_√√_]  ");
+                                string format1 = "";
+                                if (seated[k].Length == 3) {
+                                    format1 = "[_√√_] ";
+                                } else {
+                                    format1 = "[_√√_]";
+                                }
+                                string format = string.Format ($"{format1}  ");
                                 Console.Write (format);
                                 flag = false;
                             }
                         }
                         for (int k = 0; k < choicedSeat.Count; k++) {
                             if (seat == choicedSeat[k]) {
-                                string format = string.Format ($"[^﹏^]  ");
+                                string format1 = "";
+                                if (choicedSeat[k].Length == 3) {
+                                    format1 = "[^﹏^] ";
+                                } else {
+                                    format1 = "[^﹏^]";
+                                }
+                                string format = string.Format ($"{format1}  ");
+                                Console.Write (format);
+                                flag = false;
+                            }
+                        }
+                        for (int k = 0; k < map_chaire_not_placed.Length; k++) {
+                            if (seat == map_chaire_not_placed[k]) {
+                                string format1 = "";
+                                if (map_chaire_not_placed[k].Length == 3) {
+                                    format1 = "       ";
+                                } else {
+                                    format1 = "      ";
+                                }
+                                string format = string.Format ($"{format1}  ");
                                 Console.Write (format);
                                 flag = false;
                             }
@@ -389,6 +515,9 @@ namespace PL_Console {
             Console.WriteLine ("\n");
             Console.WriteLine ("      [_X4_] : Ghế trống  [_√√_] : Ghế đã có người đặt   [^﹏^] : Ghế đang chọn  [V:__] : Ghế VIP ");
             Console.WriteLine ("\n     _______________________________________________________________________________________________");
+            // Console.WriteLine ("\n        0. Quay lại.");
+            // Console.WriteLine ("\n        *: Nhập số số ghế theo định dạng A1, A2, A3 để chọn ghế.");
+            // Console.WriteLine ("\n     _______________________________________________________________________________________________");
         }
 
         public static string AddSeatsForSchedule (List<string> choicedSeat, string[] succerTest, string map) {

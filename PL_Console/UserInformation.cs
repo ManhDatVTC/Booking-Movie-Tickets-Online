@@ -54,16 +54,18 @@ namespace PL_Console {
         public void HistoryBookingTicket () {
             ReservationBL reser = new ReservationBL ();
             List<Reservation> list = reser.GetReservationByCustomerId (UserInterface.LoginCinema.GetCustomer ().Customer_id);
-            if (list == null ) {
-                Console.WriteLine ("Bạn chưa có giao dịch nào gần đây ! Đặt vé ngay bạn nhé.");
+            if (list.Count == 0) {
+                Console.WriteLine ("Bạn chưa có giao dịch nào với Rạp Thế Giới ! Đặt vé ngay bạn yêu nhé.");
                 Console.WriteLine ("Nhập <Enter> để trở lại.");
+                Console.ReadLine ();
                 return;
             } else {
                 Console.Clear ();
-                Console.WriteLine ("                         Vé Đã Mua         ");
-                Console.WriteLine ("                  _________________________");
-                Console.WriteLine ("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                Console.WriteLine ("STT   | Tên Phim                 | Ngày Chiếu               | Giá Tiền ");
+                Console.WriteLine ("                              Thông tin vé đặt trước  ");
+                Console.WriteLine ("                             _________________________");
+                Console.WriteLine ("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                Console.WriteLine ("STT   | Tên Phim                 | Ngày Chiếu               | Số Lượng (V-T)    |Giá Tiền ");
+                Console.WriteLine ("_____________________________________________________________________________________________");
 
                 for (int i = 0; i < list.Count; i++) {
                     ScheduleBL sch = new ScheduleBL ();
@@ -76,14 +78,16 @@ namespace PL_Console {
                     string end1 = string.Format ("{0:D2}:{1:D2}", schedule.End_time.Hours, schedule.End_time.Minutes);
                     string time = schedule.Show_date.ToString ($"{schedule.Show_date:dd/MM/yyyy}");
                     string datetime = time + " " + start1 + " - " + end1;
-                    string format = string.Format ($"{i+1,-6}| {informatin.Name,-25}| {datetime,-25}| {list[i].Price,-9}");
-                    Console.WriteLine (format);
-                }
-                Console.WriteLine ("__________________________________________________________________________");
+                    string[] a = list[i].Seats.Trim ().Split (" ");
 
+                    string format = string.Format ($"{i+1,-6}| {informatin.Name,-25}| {datetime,-25}| {CheckCount(a),-18}|{ChoiceMapSeats.Tien (list[i].Price.ToString ()),-9} VND");
+                    Console.WriteLine (format);
+                    Console.WriteLine ("");
+                }
+                Console.WriteLine ("_____________________________________________________________________________________________");
                 Console.WriteLine ("\n\n\n0. Quay lại.");
                 Console.WriteLine ("*: Nhập số thứ tự để xem chi tiết vé .");
-                Console.WriteLine ("---------------------------------------------------------------------------");
+                Console.WriteLine ("---------------------------------------------------------------------------------------------");
                 Console.Write ("#Chọn :  ");
                 int number;
                 while (true) {
@@ -107,6 +111,26 @@ namespace PL_Console {
                 return;
             }
         }
+        public static string CheckCount (string[] array) {
+            PriceSeatsBl price = new PriceSeatsBl ();
+            string seat = "D3,D4,D5,D6,D7,D8,E3,E4,E5,E6,E7,E8,F3,F4,F5,F6,F7,F8,G3,G4,G5,G6,G7,G8,H3,H4,H5,H6,H7,H8,I3,I4,I5,I6,I7,I8,J3,J4,J5,J6,J7,J8,K3,K4,K5,K6,K7,K8";
+            string[] mapArr = seat.Split (",");
+            int V = 0;
+            int T = 0;
+            for (int i = 0; i < array.Length; i++) {
+                int Count = 0;
+                for (int k = 0; k < mapArr.Length; k++) {
+                    if (mapArr[k] == array[i]) {
+                        V++;
+                        Count++;
+                        break;
+                    }
+                }
+                if (Count == 0) T++;
+            }
+            return $"{V}V - {T}T    ";
+
+        }
         public void CustomerInformation () {
             Customer cus = UserInterface.LoginCinema.GetCustomer ();
             Console.WriteLine ("Thông tin đăng nhập.");
@@ -114,7 +138,6 @@ namespace PL_Console {
             Console.WriteLine ($"{cus.Name}");
             Console.WriteLine ("......................................................");
             Console.WriteLine ($"     Email              :   {cus.Email}");
-            Console.WriteLine ($"     Số tài khoản       :   {cus.Account_bank}");
             Console.WriteLine ($"     Tài khoản          :   {cus.User_name}");
             Console.WriteLine ($"     Ngày sinh          :   {cus.Birthday.Day}/{cus.Birthday.Month}/{cus.Birthday.Year}");
             Console.WriteLine ($"     Điện thoại         :   {cus.Phone}");

@@ -21,6 +21,7 @@ namespace DAL {
             movie.Duration = reader.GetInt32 ("duration");
             movie.Detail_movie = reader.GetString ("detail_movie");
             movie.Release_date = reader.GetDateTime ("release_date");
+            movie.End_date = reader.GetDateTime ("end_date");
             return movie;
         }
         public List<Movies> GetMovies () {

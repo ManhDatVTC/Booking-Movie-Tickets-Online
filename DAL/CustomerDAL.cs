@@ -7,12 +7,8 @@ using Persitence;
 namespace DAL {
     public class Custome_DAL {
         private string query;
-        private MySqlConnection connection;
+        private MySqlConnection connection = DBHelper.OpenConnection ();
         private MySqlDataReader reader;
-        private DBHelper DB = new DBHelper ();
-        public Custome_DAL () {
-            connection = DBHelper.OpenConnection ();
-        }
         public static Customer GetCustomer (MySqlDataReader reader) {
             Customer customer = new Customer ();
             customer.Customer_id = reader.GetInt32 ("customer_id");
@@ -37,16 +33,12 @@ namespace DAL {
             if (connection.State == System.Data.ConnectionState.Closed) {
                 connection.Open ();
             }
-            // if (connection.State == System.Data.ConnectionState.Closed) {
-            //     connection.Open ();
-            // }
             query = $"Select * From Customer  where customer_email = '{email}' and password = '{password}';";
             Customer customer = null;
             // using (connection = DBHelper.OpenConnection ()) {
             MySqlCommand cmd = new MySqlCommand (query, connection);
             using (reader = cmd.ExecuteReader ()) {
                 if (reader.Read ()) {
-                    // customer = new Customer ();
                     customer = GetCustomer (reader);
                 }
             }
@@ -54,18 +46,6 @@ namespace DAL {
             connection.Close ();
             return customer;
         }
-        // public List<Customer> GetCustomers (MySqlCommand command) {
-        //     List<Customer> list = new List<Customer> ();
-        //     using (connection = DBHelper.OpenConnection ()) {
-        //         MySqlCommand cmd = new MySqlCommand (query, connection);
-        //         using (reader = cmd.ExecuteReader ()) {
-        //             while (reader.Read ()) {
-        //                 list.Add (GetCustomer (reader));
-        //             }
-        //         }
-        //     }
-        //     return list;
-        // }
     }
 
 }

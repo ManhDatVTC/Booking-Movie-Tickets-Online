@@ -164,7 +164,7 @@ namespace PL_Console {
                                 Console.Write ($" {start} - {end} ");
                                 if (j == 3) {
                                     Console.WriteLine ();
-                                    Console.Write ("                          |                  ");
+                                    Console.Write ("                          |  ");
                                 }
                             }
                         } else {
@@ -173,7 +173,7 @@ namespace PL_Console {
                             Console.Write ($" {start} - {end} ");
                             if (j == 3) {
                                 Console.WriteLine ();
-                                Console.Write ("                          |                 ");
+                                Console.Write ("                          |  ");
                             }
                         }
                     }

@@ -49,9 +49,10 @@ public class TestScheduleBl {
     }
 
     [Theory]
-    [InlineData (1, "2018-07-26", "08:00:00")]
-    [InlineData (1, "2018-07-25", "10:00:00")]
+    [InlineData (1, "2018-08-01", "21:30:00")]
+    [InlineData (1, "2018-08-01", "19:15:00")]
     public void SelectScheduleTimeByTestTrue (int movie_id, string datetime, string time) {
+        // 2018-08-01
         string regexDate = @"(?<year>\d{2,4})-(?<month>\d{1,2})-(?<day>\d{1,2})";
         string regexTime = @"^(\d{1,2}|\d\.\d{2}):([0-5]\d):([0-5]\d)(\.\d+)?$";
 

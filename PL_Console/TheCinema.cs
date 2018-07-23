@@ -49,7 +49,7 @@ namespace PL_Console {
             }
         }
         public static void MenuCinema () {
-            string[] menu = { "Thông tin phim.", "Đặt vé.", "Thông tin cá nhân.", "Đăng Xuất.", "#Chọn: " };
+            string[] menu = { "Phim đang chiếu.", "Đặt vé.", "Thông tin cá nhân.", "Đăng Xuất.", "#Chọn: " };
             Console.WriteLine ("=============================================================");
             Console.WriteLine ("------------- Chào Mừng Bạn Đến Với Thế Giới Phim -----------");
             Console.WriteLine ("=============================================================");

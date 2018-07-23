@@ -16,6 +16,8 @@ namespace DAL {
             room.Name = reader.GetString ("name");
             room.Number_Of_seats = reader.GetInt32 ("number_of_seats");
             room.MapSeat = reader.GetString ("map_seat");
+            room.Map_VIP = reader.GetString ("map_VIP");
+            room.Chaire_not_placed = reader.GetString ("chaire_not_placed");
             return room;
         }
         public List<Rooms> GetRooms () {

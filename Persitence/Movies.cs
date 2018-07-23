@@ -11,9 +11,11 @@ namespace Persitence {
         private int duration;
         private String detail_movie;
         private DateTime release_date;
+        private DateTime end_date;
         public Movies () { }
 
-        public Movies (int movie_id, string name, string actor, string producers, string direction, string genre, int duration, string detail_movie, DateTime release_date) {
+        public Movies(int movie_id, string name, string actor, string producers, string direction, string genre, int duration, string detail_movie, DateTime release_date, DateTime end_date)
+        {
             this.movie_id = movie_id;
             this.name = name;
             this.actor = actor;
@@ -23,6 +25,7 @@ namespace Persitence {
             this.duration = duration;
             this.detail_movie = detail_movie;
             this.release_date = release_date;
+            this.end_date = end_date;
         }
 
         public int Movie_id { get => movie_id; set => movie_id = value; }
@@ -34,17 +37,17 @@ namespace Persitence {
         public int Duration { get => duration; set => duration = value; }
         public string Detail_movie { get => detail_movie; set => detail_movie = value; }
         public DateTime Release_date { get => release_date; set => release_date = value; }
-
+        public DateTime End_date { get => end_date; set => end_date = value; }
 
         public override bool Equals (object obj) {
             Movies movie = (Movies) obj;
 
-            return this.GetHashCode() == movie.GetHashCode();
+            return this.GetHashCode () == movie.GetHashCode ();
         }
 
         public override int GetHashCode () {
             return (Movie_id + Name + Actor + Producers + Direction +
-                Genre + Duration + Detail_movie + Release_date).GetHashCode ();
+                Genre + Duration + Detail_movie + Release_date + End_date).GetHashCode ();
         }
     }
 }

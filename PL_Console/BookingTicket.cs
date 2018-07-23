@@ -39,7 +39,7 @@ namespace PL_Console {
                     }
                 }
                 if (number == 0) {
-                    return;
+                    CinemaInterface.Cinema ();
                 }
                 ChooseMovieScheduleForYou (number);
                 Console.ReadLine ();
@@ -88,87 +88,27 @@ namespace PL_Console {
                     Console.WriteLine ();
                 }
             }
+            Console.WriteLine ("--------------------------------------------------------------------------------------------");
             int number;
-            Console.Write (" * ^: Nhập số STT để chọn ngày chiếu : ");
+            Console.WriteLine ("0. Quay lại menu chính.");
+            Console.WriteLine ("*: Nhập số thứ tự để chọn ngày chiếu.");
+            Console.WriteLine ("--------------------------------------------------------------------------------------------");
+            Console.Write ("#Chọn :  ");
             while (true) {
                 bool isINT = Int32.TryParse (Console.ReadLine (), out number);
                 if (!isINT) {
                     Console.WriteLine ("Bạn vừa nhập sai giá trị, vui lòng nhập lại.");
                     Console.Write ("#Chọn: ");
-                } else if (number <= 0 || number > array.Count) {
-                    Console.WriteLine ($"Giá trị trong khoảng từ 1 - > { array.Count }");
+                } else if (number < 0 || number > array.Count) {
+                    Console.WriteLine ($"Giá trị trong khoảng từ 0 - > { array.Count }");
                     Console.Write ("#Chọn: ");
                 } else {
                     break;
                 }
             }
-            // Console.Clear ();
-            // // Lấy ra lịch chiếu nhờ STT của Ngày chiếu. 
-            // Console.WriteLine ("=====================================================================");
-            // Console.WriteLine ($"-Chọn Lịch Chiếu Của Phim  :  {informatin.Name} Ngày {array1[number - 1]} -");
-            // Console.WriteLine ("---------------------------------------------------------------------");
-            // Console.WriteLine ("STT  |  Lịch Chiếu          |  Phòng          |   Số Ghế    ");
-            // Console.WriteLine ("---------------------------------------------------------------------");
-            // List<Schedules> demons = schechule.SelectTime (movie_id, array[number - 1]);
-            // // Lưu tất cả các TimeSpan để so sánh với DateTime.Now.TimeOfDay
-            // List<string> list1 = new List<string> ();
-            // // List2 để lấy ra các thời gian show ra màn hình.
-            // List<string> list2 = new List<string> ();
-
-            // string tym_one = string.Format ("{0:D2}:{1:D2}:{2:D2}", datefortimespan.Hours, datefortimespan.Minutes, datefortimespan.Seconds);
-            // int count1 = 0;
-            // foreach (var item in demons) {
-            //     string timeText = string.Format ("{0:D2}:{1:D2}:{2:D2}", item.Start_time.Hours, item.Start_time.Minutes, item.Start_time.Seconds);
-            //     list1.Add (timeText);
-            // }
-            // for (int j = 0; j < demons.Count; j++) {
-            //     Rooms ro = room.GetRoomById (demons[j].Room_id);
-            //     if (comparedatetime1.CompareTo (array1[number - 1]) == 0) {
-            //         if (tym_one.CompareTo (list1[j]) < 0) {
-            //             string start = string.Format ("{0:D2}:{1:D2}", demons[j].Start_time.Hours, demons[j].Start_time.Minutes);
-            //             string end = string.Format ("{0:D2}:{1:D2}", demons[j].End_time.Hours, demons[j].End_time.Minutes);
-            //             count1++;
-            //             string addtimetolist2 = string.Format ("{0:D2}:{1:D2}:{2:D2}", demons[j].Start_time.Hours, demons[j].Start_time.Minutes, demons[j].Start_time.Seconds);
-            //             list2.Add (addtimetolist2);
-            //             string format = string.Format ($"{count1}.   | {start,-5} -  {end,-5}       |  {ro.Name,-10}     | {ro.Number_Of_seats}");
-            //             Console.WriteLine (format);
-            //         }
-            //     } else {
-            //         string start = string.Format ("{0:D2}:{1:D2}", demons[j].Start_time.Hours, demons[j].Start_time.Minutes);
-            //         string end = string.Format ("{0:D2}:{1:D2}", demons[j].End_time.Hours, demons[j].End_time.Minutes);
-            //         count1++;
-            //         string addtimetolist2 = string.Format ("{0:D2}:{1:D2}:{2:D2}", demons[j].Start_time.Hours, demons[j].Start_time.Minutes, demons[j].Start_time.Seconds);
-            //         list2.Add (addtimetolist2);
-            //         string format = string.Format ($"{count1}.   | {start,-5} -  {end,-5}       |  {ro.Name,-10}     |  {ro.Number_Of_seats}");
-            //         Console.WriteLine (format);
-            //     }
-            // }
-            // Console.WriteLine ("======================================================================");
-            // int number1;
-            // Console.Write (" * ^: Nhập số STT để chọn ngày chiếu : ");
-            // while (true) {
-            //     bool isINT = Int32.TryParse (Console.ReadLine (), out number1);
-            //     if (!isINT) {
-            //         Console.WriteLine ("Bạn vừa nhập sai giá trị, vui lòng nhập lại.");
-            //         Console.Write ("#Chọn: ");
-            //     } else if (number1 <= 0 || number1 > list2.Count) {
-            //         Console.WriteLine ($"Giá trị trong khoảng từ 1 - > { list2.Count }");
-            //         Console.Write ("#Chọn: ");
-            //     } else {
-            //         break;
-            //     }
-            // }
-            // Console.Clear ();
-            // Schedules sch = schechule.SelectTimeBy (movie_id, array[number - 1], list2[number1 - 1]);
-            // string start1 = string.Format ("{0:D2}:{1:D2}", sch.Start_time.Hours, sch.Start_time.Minutes);
-            // string end1 = string.Format ("{0:D2}:{1:D2}", sch.End_time.Hours, sch.End_time.Minutes);
-            // Console.WriteLine ("=====================================================================");
-            // Console.WriteLine ($"Rạp chiếu phim thế giới.");
-            // Console.WriteLine ($"Phim : {informatin.Name}.  Ngày chiếu : {array1[number - 1]}. Lịch chiếu : {start1} - {end1}");
-            // Console.WriteLine ("---------------------------------------------------------------------");
-            // Console.WriteLine ("---------------------------------------------------------------------");
-            // Console.WriteLine ("CHỌN GHẾ ");
-            // Console.WriteLine ("---------------------------------------------------------------------");
+            if (number == 0) {
+                CinemaInterface.Cinema ();
+            }
             ShowScheduleByMovieIdAndDatetime (movie_id, schechule, array1[number - 1], array[number - 1]);
 
         }
@@ -184,7 +124,7 @@ namespace PL_Console {
             Console.WriteLine ("=====================================================================");
             Console.WriteLine ($"-Chọn Lịch Chiếu Của Phim  :  {informatin.Name} Ngày {datetime} -");
             Console.WriteLine ("---------------------------------------------------------------------");
-            Console.WriteLine ("STT  |  Lịch Chiếu          |  Phòng          |   Số Ghế    ");
+            Console.WriteLine ("STT  |  Lịch Chiếu          |  Phòng          |  Số ghế còn lại    ");
             Console.WriteLine ("---------------------------------------------------------------------");
             List<Schedules> demons = schechule.SelectTime (movie_id, datetimeforDatabase);
             // Lưu tất cả các TimeSpan để so sánh với DateTime.Now.TimeOfDay
@@ -200,6 +140,9 @@ namespace PL_Console {
             }
             for (int j = 0; j < demons.Count; j++) {
                 Rooms ro = room.GetRoomById (demons[j].Room_id);
+                string date1 = demons[j].Show_date.ToString ($"{demons[j].Show_date:yyyy-MM-dd}");
+                string timeTe = string.Format ("{0:D2}:{1:D2}:{2:D2}", demons[j].Start_time.Hours, demons[j].Start_time.Minutes, demons[j].Start_time.Seconds);
+                // Schedules sche = schechule.SelectTimeBy (demons[j].Movie_id,date1,timeTe);
                 if (comparedatetime1.CompareTo (datetime) == 0) {
                     if (tym_one.CompareTo (list1[j]) < 0) {
                         string start = string.Format ("{0:D2}:{1:D2}", demons[j].Start_time.Hours, demons[j].Start_time.Minutes);
@@ -207,6 +150,12 @@ namespace PL_Console {
                         count1++;
                         string addtimetolist2 = string.Format ("{0:D2}:{1:D2}:{2:D2}", demons[j].Start_time.Hours, demons[j].Start_time.Minutes, demons[j].Start_time.Seconds);
                         list2.Add (addtimetolist2);
+                        Schedules sche = schechule.SelectTimeBy (demons[j].Movie_id, date1, timeTe);
+                        string[] count = sche.Schedule_room_seat.Trim ().Split (";");
+                        string[] seated = count[2].Split (",");
+                        int a = 0;
+                        if (seated[0] != "") a = ro.Number_Of_seats - seated.Length;
+                        else a = ro.Number_Of_seats;
                         string format = string.Format ($"{count1}.   | {start,-5} -  {end,-5}       |  {ro.Name,-10}     | {ro.Number_Of_seats}");
                         Console.WriteLine (format);
                     }
@@ -214,26 +163,38 @@ namespace PL_Console {
                     string start = string.Format ("{0:D2}:{1:D2}", demons[j].Start_time.Hours, demons[j].Start_time.Minutes);
                     string end = string.Format ("{0:D2}:{1:D2}", demons[j].End_time.Hours, demons[j].End_time.Minutes);
                     count1++;
+                    Schedules sche = schechule.SelectTimeBy (demons[j].Movie_id, date1, timeTe);
+                    string[] count = sche.Schedule_room_seat.Trim ().Split (";");
+                    string[] seated = count[2].Split (",");
+                    int a = 0;
+                    if (seated[0] != "") a = ro.Number_Of_seats - seated.Length;
+                    else a = ro.Number_Of_seats;
                     string addtimetolist2 = string.Format ("{0:D2}:{1:D2}:{2:D2}", demons[j].Start_time.Hours, demons[j].Start_time.Minutes, demons[j].Start_time.Seconds);
                     list2.Add (addtimetolist2);
-                    string format = string.Format ($"{count1}.   | {start,-5} -  {end,-5}       |  {ro.Name,-10}     |  {ro.Number_Of_seats}");
+                    string format = string.Format ($"{count1}.   | {start,-5} -  {end,-5}       |  {ro.Name,-10}     |  {a }");
                     Console.WriteLine (format);
                 }
             }
-            Console.WriteLine ("======================================================================");
+            Console.WriteLine ("---------------------------------------------------------------------");
             int number1;
-            Console.Write (" * ^: Nhập số STT để chọn ngày chiếu : ");
+            Console.WriteLine ("0. Quay lại menu chính.");
+            Console.WriteLine ("*: Nhập số thứ tự để chọn thời gian chiếu.");
+            Console.WriteLine ("---------------------------------------------------------------------");
+            Console.Write ("#Chọn :  ");
             while (true) {
                 bool isINT = Int32.TryParse (Console.ReadLine (), out number1);
                 if (!isINT) {
                     Console.WriteLine ("Bạn vừa nhập sai giá trị, vui lòng nhập lại.");
                     Console.Write ("#Chọn: ");
-                } else if (number1 <= 0 || number1 > list2.Count) {
-                    Console.WriteLine ($"Giá trị trong khoảng từ 1 - > { list2.Count }");
+                } else if (number1 < 0 || number1 > list2.Count) {
+                    Console.WriteLine ($"Giá trị trong khoảng từ 0 - > { list2.Count }");
                     Console.Write ("#Chọn: ");
                 } else {
                     break;
                 }
+            }
+            if (number1 == 0) {
+                CinemaInterface.Cinema ();
             }
             Console.Clear ();
             Schedules sch = schechule.SelectTimeBy (movie_id, datetimeforDatabase, list2[number1 - 1]);
