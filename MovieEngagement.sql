@@ -94,6 +94,7 @@ INSERT INTO Customer (name,customer_email,customer_phone,user_name,password,birt
 ('Harry Potter', 'harrypottet@gmail.com','0988968289','USERNAME','123456','1997-11-20','Hưng Yên, Việt Nam','Nam','09898928181822');
 -- Insert data for the table Movies
 
+
 INSERT INTO Movies(movie_name,actor,producers,director,genre,duration,detail_movie,release_date,end_date) VALUE 
 ('HARRY POTTER','Harry Potter - Hermione Granger - Ron Weasley ...','Warner Bros., Heyday Films, 1492 Pictures','Chris Columbus',N'Phim viễn tưởng,Phim phiêu lưu','118',
 N'Những cuộc phiêu lưu tập trung vào cuộc chiến của Harry Potter trong việc chống lại tên Chúa tể hắc ám Voldemort - người có tham vọng muốn trở nên bất tử, thống trị thế giới phù thủy,  nô dịch hóa những người phi pháp thuật và tiêu diệt những ai cản đường hắn đặc biệt là Harry Potter.','2018-07-20','2018-09-10');
