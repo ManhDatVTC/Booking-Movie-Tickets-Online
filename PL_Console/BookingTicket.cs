@@ -153,10 +153,12 @@ namespace PL_Console {
                         Schedules sche = schechule.SelectTimeBy (demons[j].Movie_id, date1, timeTe);
                         string[] count = sche.Schedule_room_seat.Trim ().Split (";");
                         string[] seated = count[2].Split (",");
+                        string[] chaier = ro.Chaire_not_placed.Split (",");
                         int a = 0;
                         if (seated[0] != "") a = ro.Number_Of_seats - seated.Length;
                         else a = ro.Number_Of_seats;
-                        string format = string.Format ($"{count1}.   | {start,-5} -  {end,-5}       |  {ro.Name,-10}     | {ro.Number_Of_seats}");
+                        if (chaier[0] != "") a = a - chaier.Length;
+                        string format = string.Format ($"{count1}.   | {start,-5} -  {end,-5}       |  {ro.Name,-10}     | {a}");
                         Console.WriteLine (format);
                     }
                 } else {
@@ -169,6 +171,8 @@ namespace PL_Console {
                     int a = 0;
                     if (seated[0] != "") a = ro.Number_Of_seats - seated.Length;
                     else a = ro.Number_Of_seats;
+                    string[] chaier = ro.Chaire_not_placed.Split (",");
+                    if (chaier[0] != "") a = a - chaier.Length;
                     string addtimetolist2 = string.Format ("{0:D2}:{1:D2}:{2:D2}", demons[j].Start_time.Hours, demons[j].Start_time.Minutes, demons[j].Start_time.Seconds);
                     list2.Add (addtimetolist2);
                     string format = string.Format ($"{count1}.   | {start,-5} -  {end,-5}       |  {ro.Name,-10}     |  {a }");
@@ -178,7 +182,7 @@ namespace PL_Console {
             Console.WriteLine ("---------------------------------------------------------------------");
             int number1;
             Console.WriteLine ("0. Quay lại menu chính.");
-            Console.WriteLine ("*: Nhập số thứ tự để chọn thời gian chiếu.");
+            Console.WriteLine ("*: Nhập số thứ tự để suất chiếu.");
             Console.WriteLine ("---------------------------------------------------------------------");
             Console.Write ("#Chọn :  ");
             while (true) {

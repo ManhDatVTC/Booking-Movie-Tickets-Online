@@ -92,7 +92,7 @@ namespace PL_Console {
                     }
                     int count = 0;
                     Customer_Bl ad = new Customer_Bl ();
-                    if (ad.Login (Email, password) != null) {
+                    if (ad.Login (Email.Trim(), password) != null) {
                         count++;
                     }
                     CheckLoginSuccessOrFailure (count, Email, password);
@@ -100,7 +100,7 @@ namespace PL_Console {
 
             }
             private static bool CheckNotSpecialCharacters (string Email, string password) {
-                if (Regex.IsMatch (Email, @"^[^<>()[\]\\,;:'\%#^\s@\$&!@]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,}))$") != true ||
+                if (Regex.IsMatch (Email, @"^[-.@_a-zA-Z0-9áàảãạâấầẩẫậăắằẳẵặđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ ]+$") != true ||
                     Email == "" || Regex.IsMatch (password, @"^[-.@_a-zA-Z0-9 ]+$") != true || password == "") {
                     return false;
                 }

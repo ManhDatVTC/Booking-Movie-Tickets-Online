@@ -25,7 +25,7 @@ namespace DAL {
             return customer;
         }
         public Customer Login (string email, string password) {
-            string regexEmail = @"^[^<>()[\]\\,;:'\%#^\s@\$&!@]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,}))$";
+            string regexEmail = @"^[-.@_a-zA-Z0-9áàảãạâấầẩẫậăắằẳẵặđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ ]+$";
             string regexPassword = @"^[-.@_a-zA-Z0-9 ]+$";
             if (Regex.IsMatch (email, regexEmail) != true || email == "" || Regex.IsMatch (password, regexPassword) != true || password == "") {
                 return null;
@@ -33,16 +33,19 @@ namespace DAL {
             if (connection.State == System.Data.ConnectionState.Closed) {
                 connection.Open ();
             }
-            query = $"Select * From Customer  where customer_email = '{email}' and password = '{password}';";
+            if (Regex.IsMatch (email, @"^[^<>()[\]\\,;:'\%#^\s@\$&!@]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,}))$") != true) {
+                query = $"Select * From Customer  where user_name = '{email}' and password = '{password}';";
+                // Select * From Customer  where user_name = 'Đạt liv' and password = '123456';
+            } else {
+                query = $"Select * From Customer  where customer_email = '{email}' and password = '{password}';";
+            }
             Customer customer = null;
-            // using (connection = DBHelper.OpenConnection ()) {
             MySqlCommand cmd = new MySqlCommand (query, connection);
             using (reader = cmd.ExecuteReader ()) {
                 if (reader.Read ()) {
                     customer = GetCustomer (reader);
                 }
             }
-            // }
             connection.Close ();
             return customer;
         }

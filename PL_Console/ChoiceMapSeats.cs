@@ -60,13 +60,6 @@ namespace PL_Console {
                 }
                 string test = "";
                 test = CheckSeatInSchedule (choiced, succer, test, rowsArr, cols, map_chaire_not_placed);
-                // for (int i = 0; i < map_chaire_not_placed.Length; i++) {
-                //     for (int k = 0; k < choiced.Length; k++) {
-                //         if (map_chaire_not_placed[i].Equals (choiced[k])) {
-                //             test = test + " " + map_chaire_not_placed[i];
-                //         }
-                //     }
-                // }
                 if (test != "") {
                     Console.Clear ();
                     Console.WriteLine ("\n                    -------------------------------------------------------------------------------");
@@ -314,10 +307,10 @@ namespace PL_Console {
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |   • Mẫu số : 01/VE2/003                • Ký Hiệu  : MT/17T                   |");
             Console.WriteLine ($"                   |                                                                              |");
-            Console.WriteLine ($"                   |   • Số vé : {res.Code_ticket,-6}                   • MST : 0303675393-001                |");
+            Console.WriteLine ($"                   |   • Số vé : {res.Code_ticket,-6}                     • MST : 0303675393-001                |");
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |  CÔNG TY TNHH CINEMA MẠNH ĐẠT - CHI NHÁNH HÀ NỘI                             |");
-            Console.WriteLine ($"                   |  Toà nhà VTC, Số 18 phường Tam Trinh quận Hai Bà Trưng, thành phố Hà Nội     |");
+            Console.WriteLine ($"                   |  Toà nhà VTC, Số 18 đường Tam Trinh  quận Hai Bà Trưng, thành phố Hà Nội     |");
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |  ............................................................................|");
             Console.WriteLine ($"                   |                                                                              |");
@@ -343,7 +336,7 @@ namespace PL_Console {
                 if (dem == 2) dem = 0;
                 if ((i + 1) % 2 == 0) Console.Write ("   |\n                   |                                       ");
             }
-            
+
             if (dem == 1) {
                 Console.WriteLine ("                     |");
             } else {
@@ -401,7 +394,10 @@ namespace PL_Console {
             Console.WriteLine ("\n• CHỌN GHẾ \n");
             Console.WriteLine ($"Phim : {informatin.Name}.     Ngày chiếu : {datetime}.     Lịch chiếu : {start1} - {end1}");
             Console.WriteLine ("---------------------------------------------------------------------------------------------------------");
-            Console.WriteLine ("                                              Màn Hình                                                    ");
+            Console.BackgroundColor = ConsoleColor.Gray;
+            Console.ForegroundColor = System.ConsoleColor.Black;
+            Console.WriteLine ("\n                                              Màn Hình                                                   \n");
+            Console.ResetColor ();
             Console.WriteLine ("---------------------------------------------------------------------------------------------------------");
             Console.WriteLine ("\n");
             Console.WriteLine ("+++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++++");
@@ -426,8 +422,12 @@ namespace PL_Console {
                                 } else {
                                     format1 = "[_√√_]";
                                 }
-                                string format = string.Format ($"{format1}  ");
+                                Console.BackgroundColor = ConsoleColor.Green;
+                                Console.ForegroundColor = System.ConsoleColor.Black;
+                                string format = string.Format ($"{format1}");
                                 Console.Write (format);
+                                Console.ResetColor ();
+                                Console.Write ("  ");
                                 flag = false;
                             }
                         }
@@ -439,8 +439,12 @@ namespace PL_Console {
                                 } else {
                                     format1 = "[^﹏^]";
                                 }
-                                string format = string.Format ($"{format1}  ");
+                                Console.BackgroundColor = ConsoleColor.Yellow;
+                                Console.ForegroundColor = System.ConsoleColor.Blue;
+                                string format = string.Format ($"{format1}");
                                 Console.Write (format);
+                                Console.ResetColor ();
+                                Console.Write ("  ");
                                 flag = false;
                             }
                         }
@@ -458,7 +462,11 @@ namespace PL_Console {
                             }
                         }
                         if (flag) {
-                            Console.Write ("[_" + seat + "_]  ");
+                            Console.BackgroundColor = ConsoleColor.Gray;
+                            Console.ForegroundColor = System.ConsoleColor.Black;
+                            Console.Write ($"[_{seat}_]");
+                            Console.ResetColor ();
+                            Console.Write ("  ");
                         }
                     } else {
                         for (int k = 0; k < seated.Length; k++) {
@@ -469,8 +477,12 @@ namespace PL_Console {
                                 } else {
                                     format1 = "[_√√_]";
                                 }
-                                string format = string.Format ($"{format1}  ");
+                                Console.BackgroundColor = ConsoleColor.Green;
+                                Console.ForegroundColor = System.ConsoleColor.Black;
+                                string format = string.Format ($"{format1}");
                                 Console.Write (format);
+                                Console.ResetColor ();
+                                Console.Write ("  ");
                                 flag = false;
                             }
                         }
@@ -482,8 +494,12 @@ namespace PL_Console {
                                 } else {
                                     format1 = "[^﹏^]";
                                 }
-                                string format = string.Format ($"{format1}  ");
+                                Console.BackgroundColor = ConsoleColor.Yellow;
+                                Console.ForegroundColor = System.ConsoleColor.Blue;
+                                string format = string.Format ($"{format1}");
                                 Console.Write (format);
+                                Console.ResetColor ();
+                                Console.Write ("  ");
                                 flag = false;
                             }
                         }
@@ -501,7 +517,11 @@ namespace PL_Console {
                             }
                         }
                         if (flag) {
-                            Console.Write ("[V:" + seat + "]  ");
+                            Console.BackgroundColor = ConsoleColor.Red;
+                            Console.ForegroundColor = System.ConsoleColor.Yellow;
+                            Console.Write ("[V:" + seat + "]");
+                            Console.ResetColor ();
+                            Console.Write ("  ");
                         }
                     }
 
@@ -513,7 +533,27 @@ namespace PL_Console {
             Console.WriteLine ("\n|                                                                                                        |");
             Console.WriteLine ("+++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++++");
             Console.WriteLine ("\n");
-            Console.WriteLine ("      [_X4_] : Ghế trống  [_√√_] : Ghế đã có người đặt   [^﹏^] : Ghế đang chọn  [V:__] : Ghế VIP ");
+            Console.Write ("       ");
+            Console.BackgroundColor = ConsoleColor.Gray;
+            Console.ForegroundColor = System.ConsoleColor.Black;
+            Console.Write ("[_XX_]");
+            Console.ResetColor ();
+            Console.Write (" : Ghế trống  ");
+            Console.BackgroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = System.ConsoleColor.Black;
+            Console.Write ("[_√√_]");
+            Console.ResetColor ();
+            Console.Write (" : Ghế đã có người đặt   ");
+            Console.BackgroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = System.ConsoleColor.Blue;
+            Console.Write ("[^﹏^]");
+            Console.ResetColor ();
+            Console.Write (" : Ghế đang chọn  ");
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = System.ConsoleColor.Yellow;
+            Console.Write ("[V:__]");
+            Console.ResetColor ();
+            Console.WriteLine (" : Ghế VIP ");
             Console.WriteLine ("\n     _______________________________________________________________________________________________");
             // Console.WriteLine ("\n        0. Quay lại.");
             // Console.WriteLine ("\n        *: Nhập số số ghế theo định dạng A1, A2, A3 để chọn ghế.");
