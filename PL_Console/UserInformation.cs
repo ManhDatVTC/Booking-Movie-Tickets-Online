@@ -29,8 +29,6 @@ namespace PL_Console {
                     case 2:
                         Console.Clear ();
                         CustomerInformation ();
-                        Console.Write ("Nhập <Enter> để trở lại.");
-                        Console.ReadLine ();
                         break;
                     case 3:
                         return;
