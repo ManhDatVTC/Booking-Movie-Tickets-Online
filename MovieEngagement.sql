@@ -151,6 +151,19 @@ INSERT INTO Rooms(name,number_of_seats,map_seat,map_VIP,chaire_not_placed) VALUE
 Select * from Movies;
 -- Insert data for the table Schedules date 20 - 21 - 22 day to room A1 A2 A3 A4 A5 A6 A7 A8
 INSERT INTO Schedules(movie_id,room_id,show_date,start_time,end_time,price,schedule_room_seat) VALUE
+('1','1','2018-07-31','10:15:00','12:15:00','45000','A B C D E F G H I J K L M N;10;'),
+('1','2','2018-07-31','10:30:00','12:30:00','45000','A B C D E F G H I J K L;10;'),
+('1','1','2018-07-31','13:45:00','15:45:00','45000','A B C D E F G H I J K L M N;10;'),
+('1','2','2018-07-31','19:00:00','21:00:00','45000','A B C D E F G H I J K L;10;'),
+('1','1','2018-07-31','19:15:00','21:15:00','45000','A B C D E F G H I J K L M N;10;'),
+('1','1','2018-07-31','21:30:00','23:30:00','45000','A B C D E F G H I J K L M N;10;'),
+('1','1','2018-08-01','10:15:00','12:15:00','45000','A B C D E F G H I J K L M N;10;'),
+('1','2','2018-08-01','10:30:00','12:30:00','45000','A B C D E F G H I J K L;10;'),
+('1','1','2018-08-01','13:45:00','15:45:00','45000','A B C D E F G H I J K L M N;10;'),
+('1','2','2018-08-01','19:00:00','21:00:00','45000','A B C D E F G H I J K L;10;'),
+('1','1','2018-08-01','19:15:00','21:15:00','45000','A B C D E F G H I J K L M N;10;'),
+('1','1','2018-08-01','21:30:00','23:30:00','45000','A B C D E F G H I J K L M N;10;');
+INSERT INTO Schedules(movie_id,room_id,show_date,start_time,end_time,price,schedule_room_seat) VALUE
 ('1','1','2018-08-02','10:15:00','12:15:00','45000','A B C D E F G H I J K L M N;10;'),
 ('1','2','2018-08-02','10:30:00','12:30:00','45000','A B C D E F G H I J K L;10;'),
 ('1','1','2018-08-02','13:45:00','15:45:00','45000','A B C D E F G H I J K L M N;10;'),

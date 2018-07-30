@@ -17,15 +17,15 @@ namespace PL_Console {
             _email = "";
             _phone = "";
             _address = "";
+            _count = 0;
         }
-
-        private static string _title = "Đăng nhập";
         public static string _valueUser { get; set; }
         public static string _valuePass { get; set; }
         public static string _name { get; set; }
         public static string _email { get; set; }
         public static string _phone { get; set; }
         public static string _address { get; set; }
+        public static int _count { get; set; }
 
         public static void Show () {
 
@@ -40,7 +40,12 @@ namespace PL_Console {
             string email = "";
             string phone = "";
             string address = "";
-            bool checs = true;
+            bool checs1 = true;
+            bool checs2 = true;
+            bool checs3 = true;
+            bool checs4 = true;
+            bool checs5 = true;
+            bool checs6 = true;
             while (true) {
                 if (choice == 2 || choice == 3 || choice == 4 || choice == 5 || choice == 6 || choice == 7)
                     Console.CursorVisible = true;
@@ -84,7 +89,7 @@ namespace PL_Console {
                 Console.WriteLine ();
                 Console.Write ("Thay đổi thông tin       ");
                 if (choice == 9) Console.Write ("" + flag);
-                Console.WriteLine ("\n \n---------------------------------------------------------------------------------------------------");
+                Console.WriteLine ("\n \n \n \n---------------------------------------------------------------------------------------------------");
                 Console.WriteLine ("---------------------------------------------------------------------------------------------------");
                 Console.SetCursorPosition (28 + spaceInput, choice);
 
@@ -96,38 +101,38 @@ namespace PL_Console {
                     if (choice == 2) {
                         if (Regex.IsMatch (_valueUser, @"^[-.@_a-zA-Z0-9áàảãạâấầẩẫậăắằẳẵặđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ ]+$") != true) {
                             customer = "Tên đang nhập không được chức ký tự đặc biệt.";
-                            checs = false;
-                        } else { customer = "√"; checs = true; }
+                            checs1 = false;
+                        } else { customer = "√"; checs1 = true; }
                     }
                     if (choice == 3) {
                         if (Regex.IsMatch (_valuePass, @"^[-.@_a-zA-Z0-9 ]+$") != true || _valuePass.Trim () == "") {
                             pass = "Mật khẩu không được chứa ký tự đặc biệt.";
-                            checs = false;
-                        } else { pass = "√"; checs = true; }
+                            checs2 = false;
+                        } else { pass = "√"; checs2 = true; }
                     }
                     if (choice == 4) {
-                        if (Regex.IsMatch (_name, @"^[-.@_a-zA-Z0-9áàảãạâấầẩẫậăắằẳẵặđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ ]+$") != true || _name.Trim () == "") {
-                            name = "Tên không được chứa ký tự đắc biệt và không chứa số.";
-                            checs = false;
-                        } else { name = "√"; checs = true; }
+                        if (Regex.IsMatch (_name, @"^[-.@_a-zA-ZáàảãạâấầẩẫậăắằẳẵặđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ ]+$") != true || _name.Trim () == "") {
+                            name = "Họ tên không được chứa ký tự đắc biệt và không chứa số.";
+                            checs3 = false;
+                        } else { name = "√"; checs3 = true; }
                     }
                     if (choice == 5) {
                         if (Regex.IsMatch (_email, @"^[^<>()[\]\\,;:'\%#^\s@\$&!@]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,}))$") != true) {
-                            email = "Nhập đúng định dạng Email. VD valen@gmail.com";
-                            checs = false;
-                        } else { email = "√"; checs = true; }
+                            email = "Bạn nhập sai định dạng Email. Vui lòng nhập lại. VD valen@gmail.com";
+                            checs4 = false;
+                        } else { email = "√"; checs4 = true; }
                     }
                     if (choice == 6) {
                         if (Regex.IsMatch (_phone, @"^(01[2689]|09)[0-9]{8}$") != true) {
                             phone = "Bạn đã nhập sai số điện thoại. VD 0988968289";
-                            checs = false;
-                        } else { phone = "√"; checs = true; }
+                            checs5 = false;
+                        } else { phone = "√"; checs5 = true; }
                     }
                     if (choice == 7) {
                         if (Regex.IsMatch (_address, @"^[-.@_a-zA-Z0-9áàảãạâấầẩẫậăắằẳẵặđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ ]+$") != true) {
                             address = "Địa chỉ không được chứa ký tự đặc biệt và không được trống.";
-                            checs = false;
-                        } else { address = "√"; checs = true; }
+                            checs6 = false;
+                        } else { address = "√"; checs6 = true; }
                     }
                     choice++;
 
@@ -135,50 +140,59 @@ namespace PL_Console {
                     if (choice == 2) {
                         if (Regex.IsMatch (_valueUser, @"^[-.@_a-zA-Z0-9áàảãạâấầẩẫậăắằẳẵặđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ ]+$") != true) {
                             customer = "Tên đang nhập không được chức ký tự đặc biệt.";
-                            checs = false;
-                        } else { customer = "√"; checs = true; }
+                            checs1 = false;
+                        } else { customer = "√"; checs1 = true; }
                     }
                     if (choice == 3) {
                         if (Regex.IsMatch (_valuePass, @"^[-.@_a-zA-Z0-9 ]+$") != true || _valuePass.Trim () == "") {
                             pass = "Mật khẩu không được chứa ký tự đặc biệt.";
-                            checs = false;
-                        } else { pass = "√"; checs = true; }
+                            checs2 = false;
+                        } else { pass = "√"; checs2 = true; }
                     }
                     if (choice == 4) {
                         if (Regex.IsMatch (_name, @"^[-.@_a-zA-Z0-9áàảãạâấầẩẫậăắằẳẵặđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ ]+$") != true || _name.Trim () == "") {
                             name = "Tên không được chứa ký tự đắc biệt và không chứa số.";
-                            checs = false;
-                        } else { name = "√"; checs = true; }
+                            checs3 = false;
+                        } else { name = "√"; checs3 = true; }
                     }
                     if (choice == 5) {
                         if (Regex.IsMatch (_email, @"^[^<>()[\]\\,;:'\%#^\s@\$&!@]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z0-9]+\.)+[a-zA-Z]{2,}))$") != true) {
                             email = "Nhập đúng định dạng Email. VD valen@gmail.com";
-                            checs = false;
-                        } else { email = "√"; checs = true; }
+                            checs4 = false;
+                        } else { email = "√"; checs4 = true; }
                     }
                     if (choice == 6) {
                         if (Regex.IsMatch (_phone, @"^(01[2689]|09)[0-9]{8}$") != true) {
                             phone = "Bạn đã nhập sai số điện thoại. VD 0988968289";
-                            checs = false;
-                        } else { phone = "√"; checs = true; }
+                            checs5 = false;
+                        } else { phone = "√"; checs5 = true; }
                     }
                     if (choice == 7) {
                         if (Regex.IsMatch (_address, @"^[-.@_a-zA-Z0-9áàảãạâấầẩẫậăắằẳẵặđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ ]+$") != true) {
                             address = "Địa chỉ không được chứa ký tự đặc biệt và không được trống.";
-                            checs = false;
-                        } else { address = "√"; checs = true; }
+                            checs6 = false;
+                        } else { address = "√"; checs6 = true; }
                     }
                     if (choice == 9) {
-                        if (checs == true) {
-                            if (MessageLogin (_valueUser, _valuePass, _name, _email, _phone, _address) == true) {
-                                Console.WriteLine ("Bạn đã thay đổi tài khoản thành công !");
-                                Console.WriteLine ("Nhấn Enter để trở lại.");
+                        if (checs1 == true && checs2 == true && checs3 == true && checs4 == true && checs5 == true && checs6 == true) {
+                            if (_count == 0) {
+                                if (MessageLogin (_valueUser, _valuePass, _name, _email, _phone, _address, _count) == true) {
+                                    _count++;
+                                    Console.WriteLine ("Bạn đã thay đổi tài khoản thành công !");
+                                    Console.WriteLine ("Nhấn Enter để trở lại.");
+                                    Console.ReadLine ();
+                                    return;
+                                } else {
+                                    Console.WriteLine ("Thay đổi thông tin không thành công do lỗi hệ thống ! ");
+                                    Console.ReadLine ();
+                                }
+                            } else {
+                                Console.WriteLine ("Bạn không thể thay đổi tài khoản liện tục, vui lòng thoát ra vào lại !");
+                                Console.WriteLine ("Enter để trở lại !");
                                 Console.ReadLine ();
                                 return;
-                            } else {
-                                Console.WriteLine ("Thay đổi thông tin không thành công do lỗi hệ thống ! ");
-                                Console.ReadLine ();
                             }
+
                         } else {
                             Console.WriteLine ("Điền đúng thông tin thì mới thay đổi được, vui lòng nhập lại hoặc thoát.");
                             key = Console.ReadKey ();
@@ -235,7 +249,7 @@ namespace PL_Console {
             }
         }
 
-        static bool MessageLogin (string _valueUser, string _valuePass, string _name, string _email, string _phone, string _address) {
+        static bool MessageLogin (string _valueUser, string _valuePass, string _name, string _email, string _phone, string _address, int _count) {
             Customer cus = UserInterface.LoginCinema.GetCustomer ();
             Customer customer = new Customer ();
             customer.User_name = _valueUser;
