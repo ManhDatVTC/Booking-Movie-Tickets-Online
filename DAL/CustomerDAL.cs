@@ -49,6 +49,66 @@ namespace DAL {
             connection.Close ();
             return customer;
         }
+        public bool ChangeLogin (Customer cu) {
+            bool result = false;
+            if (cu.User_name == null || cu.Password == null) {
+                return result;
+            }
+            if (connection.State == System.Data.ConnectionState.Closed) {
+                connection.Open ();
+            }
+            MySqlCommand command = connection.CreateCommand ();
+            MySqlTransaction transaction = connection.BeginTransaction ();
+            command.Connection = connection;
+            command.CommandText = "lock tables Customer write , Movies write, Rooms write ,Schedules write;";
+            command.ExecuteNonQuery ();
+            command.Transaction = transaction;
+            try {
+                // command.CommandText = $"update Schedules set schedule_room_seat = '{mapSeats}' where schedule_id = {schedule.Schedule_id};";
+                // update Customer set user_name = 'Dat hihi', password = '1234',name = 'Tran Manh Dat ' , customer_email = 'valen@gmail.com',customer_phone = '0988968289',address = 'Hung Yen - VN'  where customer_id = 1;
+                command.CommandText = $@"update Customer set user_name = '{cu.User_name}', password = '{cu.Password}',name = '{cu.Name}' , customer_email = '{cu.Email}',customer_phone = '{cu.Phone}',address = '{cu.Address}'  where customer_id = {cu.Customer_id};";
+                command.ExecuteNonQuery ();
+                transaction.Commit ();
+                result = true;
+            } catch (Exception ex) {
+                Console.WriteLine ("Commit Exception Type: {0}", ex.GetType ());
+                Console.WriteLine ("  Message: {0}", ex.Message);
+                try {
+                    transaction.Rollback ();
+                } catch (Exception ex2) {
+                    Console.WriteLine ("Rollback Exception Type: {0}", ex2.GetType ());
+                    Console.WriteLine ("  Message: {0}", ex2.Message);
+                }
+            } finally {
+                command.CommandText = "unlock tables;";
+                command.ExecuteNonQuery ();
+
+            }
+            connection.Close ();
+            return result;
+        }
+        // try {
+        //     command.CommandText = $"update Schedules set schedule_room_seat = '{mapSeats}' where schedule_id = {schedule.Schedule_id};";
+        //     command.ExecuteNonQuery ();
+        //     transaction.Commit ();
+        //     result = true;
+        // } catch (Exception ex) {
+        //     Console.WriteLine ("Commit Exception Type: {0}", ex.GetType ());
+        //     Console.WriteLine ("  Message: {0}", ex.Message);
+        //     try {
+        //         transaction.Rollback ();
+        //     } catch (Exception ex2) {
+        //         Console.WriteLine ("Rollback Exception Type: {0}", ex2.GetType ());
+        //         Console.WriteLine ("  Message: {0}", ex2.Message);
+        //     }
+        // } finally {
+        //     command.CommandText = "unlock tables;";
+        //     command.ExecuteNonQuery ();
+
+        // }
+        // // }
+        // connection.Close ();
+        // return result;
     }
 
 }

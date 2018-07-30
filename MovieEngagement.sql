@@ -16,8 +16,11 @@ CREATE TABLE IF NOT EXISTS Customer(
         sex nvarchar(3) not null,
         register_date datetime not null default current_timestamp()
 );
+update Customer set user_name = 'account_bank' , name = 'Manh Dat', customer_email = '123465' where customer_id = 1;
+select * from Customer;
 
--- Select * from Customer where customer_id = 1;
+
+Select * from Customer where customer_id = 1;
 -- Select count(*) as NumberOfCustomer From Customer  where customer_email = 'valentinolivgr@gmail.com' and password = '123456';   
 
 CREATE TABLE IF NOT EXISTS Movies(
@@ -87,13 +90,13 @@ INSERT INTO PriceSeat(ticketType,price) VALUE
 -- Insert data for the table Customer
 
 INSERT INTO Customer (name,customer_email,customer_phone,user_name,password,birthday,address,sex,account_bank) VALUE 
-('Trần Mạnh Đạt', 'valentinolivgr@gmail.com','0988968289','Đạt Liv','123456','1997-11-20','Hưng Yên, Việt Nam','Nam','09898928181822');
+('Trần Mạnh Đạt', 'valentinolivgr@gmail.com','0988968289','Valentino','123456','1997-11-20','Hưng Yên, Việt Nam','Nam','09898928181822');
 select * from Customer where user_name = 'Đạt liv';
+Select * From Customer  where user_name = 'Đạt liv' and password = '123456';
 
 INSERT INTO Customer (name,customer_email,customer_phone,user_name,password,birthday,address,sex,account_bank) VALUE 
 ('Harry Potter', 'harrypottet@gmail.com','0988968289','USERNAME','123456','1997-11-20','Hưng Yên, Việt Nam','Nam','09898928181822');
 -- Insert data for the table Movies
-
 
 INSERT INTO Movies(movie_name,actor,producers,director,genre,duration,detail_movie,release_date,end_date) VALUE 
 ('HARRY POTTER','Harry Potter - Hermione Granger - Ron Weasley ...','Warner Bros., Heyday Films, 1492 Pictures','Chris Columbus',N'Phim viễn tưởng,Phim phiêu lưu','118',
@@ -498,7 +501,6 @@ INSERT INTO Schedules(movie_id,room_id,show_date,start_time,end_time,price,sched
 ('8','8','2018-08-01','19:30:00','20:55:00','45000','A B C D E F G H I J K L M N;10;'),
 ('8','8','2018-08-01','21:10:00','22:35:00','45000','A B C D E F G H I J K L M N;10;'),
 ('8','8','2018-08-01','22:40:00','24:00:00','45000','A B C D E F G H I J K L M N;10;');
-
 
 
 

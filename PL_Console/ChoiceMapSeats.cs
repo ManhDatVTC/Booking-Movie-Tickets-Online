@@ -189,53 +189,105 @@ namespace PL_Console {
             Reservation reser = new Reservation ();
             reser.Reservation_id = 0;
             reser.Schedule_id = schedule.Schedule_id;
-            reser.Customer_id = UserInterface.LoginCinema.GetCustomer ().Customer_id;
-            foreach (var item in choicedSeat) {
-                choiced = choiced + " " + item;
-            }
-            reser.Seats = choiced.Trim ();
-            reser.Code_ticket = randomNumber;
-            reser.Price = PaymentFareSeat (choicedSeat);
-            string a = Tien (PaymentFareSeat (choicedSeat).ToString ()) + "   VND";
+            try {
+                reser.Customer_id = UserInterface.LoginCinema.GetCustomer ().Customer_id;
+                foreach (var item in choicedSeat) {
+                    choiced = choiced + " " + item;
+                }
+                reser.Seats = choiced.Trim ();
+                reser.Code_ticket = randomNumber;
+                reser.Price = PaymentFareSeat (choicedSeat);
+                string a = Tien (PaymentFareSeat (choicedSeat).ToString ()) + "   VND";
 
-            string time = $"{start1} - {end1}";
-            Console.Clear ();
-            Console.WriteLine ($"                      √√√√√ Rạp chiếu phim thế giới.\n");
-            Console.WriteLine ($"                      Thông tin vé đặt trước  !");
-            Console.WriteLine ($"                     –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––");
-            Console.WriteLine ($"                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
-            Console.WriteLine ($"                    |                                                                       |");
-            Console.WriteLine ($"                    |  Tên Phim          :   {string.Format ($"{informatin.Name,-47}")}|");
-            Console.WriteLine ($"                    |                                                                       |");
-            Console.WriteLine ($"                    |  Phòng Chiếu       :   {string.Format ($"{infor.Name,-47}")}|");
-            Console.WriteLine ($"                    |                                                                       |");
-            Console.WriteLine ($"                    |  Ngày Chiếu        :   {string.Format ($"{datetime,-47}")}|");
-            Console.WriteLine ($"                    |                                                                       |");
-            Console.WriteLine ($"                    |  Lịch Chiếu        :   {string.Format ($"{time,-47}")}|");
-            Console.WriteLine ($"                    |                                                                       |");
-            Console.Write ($"                    |  Ghế Ngồi          :   ");
-            int count = 0;
-            for (int i = 0; i < choicedSeat.Count; i++) {
-                count++;
-                Console.Write ($"{choicedSeat[i]} :  {Tien(PaymentFare(choicedSeat[i]).ToString())} VND    ");
-                if (count == 2) count = 0;
-                if ((i + 1) % 2 == 0) Console.Write ("       |\n                    |                        ");
+                string time = $"{start1} - {end1}";
+                Console.Clear ();
+                Console.WriteLine ($"                      √√√√√ Rạp chiếu phim thế giới.\n");
+                Console.WriteLine ($"                      Thông tin vé đặt trước  !");
+                Console.WriteLine ($"                     –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––");
+                Console.WriteLine ($"                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+                Console.WriteLine ($"                    |                                                                       |");
+                Console.WriteLine ($"                    |  Tên Phim          :   {string.Format ($"{informatin.Name,-47}")}|");
+                Console.WriteLine ($"                    |                                                                       |");
+                Console.WriteLine ($"                    |  Phòng Chiếu       :   {string.Format ($"{infor.Name,-47}")}|");
+                Console.WriteLine ($"                    |                                                                       |");
+                Console.WriteLine ($"                    |  Ngày Chiếu        :   {string.Format ($"{datetime,-47}")}|");
+                Console.WriteLine ($"                    |                                                                       |");
+                Console.WriteLine ($"                    |  Lịch Chiếu        :   {string.Format ($"{time,-47}")}|");
+                Console.WriteLine ($"                    |                                                                       |");
+                Console.Write ($"                    |  Ghế Ngồi          :   ");
+                int count = 0;
+                for (int i = 0; i < choicedSeat.Count; i++) {
+                    count++;
+                    Console.Write ($"{choicedSeat[i]} :  {Tien(PaymentFare(choicedSeat[i]).ToString())} VND    ");
+                    if (count == 2) count = 0;
+                    if ((i + 1) % 2 == 0) Console.Write ("       |\n                    |                        ");
+                }
+                if (count == 1) {
+                    Console.WriteLine ("                           |");
+                } else {
+                    Console.WriteLine ("                                               |");
+                }
+                // Console.Write ("|\n");
+                // Console.WriteLine ($"                    |  Ghế Ngồi          :   {string.Format ($"{choiced,-47}")}|");
+                Console.WriteLine ($"                    |                                                                       |");
+                Console.WriteLine ($"                    |-----------------------------------------------------------------------|");
+                Console.WriteLine ($"                    |                                                                       |");
+                Console.WriteLine ($"                    |  Tổng Tiền         :   {string.Format ($"{a,-47}")}|");
+                Console.WriteLine ($"                    |                                                                       |");
+                Console.WriteLine ($"                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+                Console.WriteLine ($"                     _______________________________________________________________________");
+                YNChoice (choicedSeat, schedule, map, reser);
+            } catch (System.Exception) {
+                reser.Customer_id = Login.GetCustomer1 ().Customer_id;
+                foreach (var item in choicedSeat) {
+                    choiced = choiced + " " + item;
+                }
+                reser.Seats = choiced.Trim ();
+                reser.Code_ticket = randomNumber;
+                reser.Price = PaymentFareSeat (choicedSeat);
+                string a = Tien (PaymentFareSeat (choicedSeat).ToString ()) + "   VND";
+
+                string time = $"{start1} - {end1}";
+                Console.Clear ();
+                Console.WriteLine ($"                      √√√√√ Rạp chiếu phim thế giới.\n");
+                Console.WriteLine ($"                      Thông tin vé đặt trước  !");
+                Console.WriteLine ($"                     –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––");
+                Console.WriteLine ($"                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+                Console.WriteLine ($"                    |                                                                       |");
+                Console.WriteLine ($"                    |  Tên Phim          :   {string.Format ($"{informatin.Name,-47}")}|");
+                Console.WriteLine ($"                    |                                                                       |");
+                Console.WriteLine ($"                    |  Phòng Chiếu       :   {string.Format ($"{infor.Name,-47}")}|");
+                Console.WriteLine ($"                    |                                                                       |");
+                Console.WriteLine ($"                    |  Ngày Chiếu        :   {string.Format ($"{datetime,-47}")}|");
+                Console.WriteLine ($"                    |                                                                       |");
+                Console.WriteLine ($"                    |  Lịch Chiếu        :   {string.Format ($"{time,-47}")}|");
+                Console.WriteLine ($"                    |                                                                       |");
+                Console.Write ($"                    |  Ghế Ngồi          :   ");
+                int count = 0;
+                for (int i = 0; i < choicedSeat.Count; i++) {
+                    count++;
+                    Console.Write ($"{choicedSeat[i]} :  {Tien(PaymentFare(choicedSeat[i]).ToString())} VND    ");
+                    if (count == 2) count = 0;
+                    if ((i + 1) % 2 == 0) Console.Write ("       |\n                    |                        ");
+                }
+                if (count == 1) {
+                    Console.WriteLine ("                           |");
+                } else {
+                    Console.WriteLine ("                                               |");
+                }
+                // Console.Write ("|\n");
+                // Console.WriteLine ($"                    |  Ghế Ngồi          :   {string.Format ($"{choiced,-47}")}|");
+                Console.WriteLine ($"                    |                                                                       |");
+                Console.WriteLine ($"                    |-----------------------------------------------------------------------|");
+                Console.WriteLine ($"                    |                                                                       |");
+                Console.WriteLine ($"                    |  Tổng Tiền         :   {string.Format ($"{a,-47}")}|");
+                Console.WriteLine ($"                    |                                                                       |");
+                Console.WriteLine ($"                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+                Console.WriteLine ($"                     _______________________________________________________________________");
+                YNChoice (choicedSeat, schedule, map, reser);
+
+                throw;
             }
-            if (count == 1) {
-                Console.WriteLine ("                           |");
-            } else {
-                Console.WriteLine ("                                               |");
-            }
-            // Console.Write ("|\n");
-            // Console.WriteLine ($"                    |  Ghế Ngồi          :   {string.Format ($"{choiced,-47}")}|");
-            Console.WriteLine ($"                    |                                                                       |");
-            Console.WriteLine ($"                    |-----------------------------------------------------------------------|");
-            Console.WriteLine ($"                    |                                                                       |");
-            Console.WriteLine ($"                    |  Tổng Tiền         :   {string.Format ($"{a,-47}")}|");
-            Console.WriteLine ($"                    |                                                                       |");
-            Console.WriteLine ($"                    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
-            Console.WriteLine ($"                     _______________________________________________________________________");
-            YNChoice (choicedSeat, schedule, map, reser);
 
         }
         public static string Tien (string XXX) {
@@ -303,11 +355,18 @@ namespace PL_Console {
             Console.WriteLine ($"                   |                           √√ VÉ ĐẶT TRƯỚC √√                                 |");
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |                                                                              |");
-            Console.WriteLine ($"                   |   • Khánh Hàng : {String.Format(UserInterface.LoginCinema.GetCustomer ().Name),-20}  • SĐT {String.Format(UserInterface.LoginCinema.GetCustomer ().Phone),-31} |");
+            try
+            {
+                Console.WriteLine ($"                   |   • Khánh Hàng : {String.Format(UserInterface.LoginCinema.GetCustomer ().Name),-20}  • SĐT {String.Format(UserInterface.LoginCinema.GetCustomer ().Phone),-31} |");
+            }
+            catch (System.Exception)
+            {
+                Console.WriteLine ($"                   |   • Khánh Hàng : {String.Format(Login.GetCustomer1 ().Name),-20}  • SĐT {String.Format(Login.GetCustomer1 ().Phone),-31} |");
+            }
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |   • Mẫu số : 01/VE2/003                • Ký Hiệu  : MT/17T                   |");
             Console.WriteLine ($"                   |                                                                              |");
-            Console.WriteLine ($"                   |   • Số vé : {res.Code_ticket,-6}                     • MST : 0303675393-001                |");
+            Console.WriteLine ($"                   |   • Số vé : {res.Code_ticket,-6}                   • MST : 0303675393-001                |");
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |  CÔNG TY TNHH CINEMA MẠNH ĐẠT - CHI NHÁNH HÀ NỘI                             |");
             Console.WriteLine ($"                   |  Toà nhà VTC, Số 18 đường Tam Trinh  quận Hai Bà Trưng, thành phố Hà Nội     |");
@@ -317,7 +376,7 @@ namespace PL_Console {
             if (count == 0) {
                 Console.WriteLine ($"                   |   CIMENA THẾ GIỚI {DateTime.Now} BOX1 ONLINE                            |");
             } else {
-                Console.WriteLine ($"                   |   CIMENA THẾ GIỚI {res.Create_on} BOX1 ONLINE                            |");
+                Console.WriteLine ($"                   |   CIMENA THẾ GIỚI {res.Create_on} BOX1 ONLINE                           |");
             }
             Console.WriteLine ($"                   |                                                                              |");
             Console.WriteLine ($"                   |  ============================================================================|");

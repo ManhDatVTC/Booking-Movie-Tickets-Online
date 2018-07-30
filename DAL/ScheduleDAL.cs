@@ -193,13 +193,6 @@ namespace DAL {
             if (connection.State == System.Data.ConnectionState.Closed) {
                 connection.Open ();
             }
-            // using (connection = DBHelper.OpenConnection ()) {
-
-            // string query = $"update Schedules set schedule_room_seat = '{mapSeats}' where schedule_id = {schedule.Schedule_id};";
-            // MySqlCommand cmd = new MySqlCommand (query, connection);
-            // if (cmd.ExecuteNonQuery () > 0) {
-            //     result = true;
-            // }
 
             MySqlCommand command = connection.CreateCommand ();
             MySqlTransaction transaction = connection.BeginTransaction ();

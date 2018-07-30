@@ -16,5 +16,9 @@ namespace BL {
             }
             return idal.Login (email, password);
         }
+        public bool ChangLogin (Customer cu) {
+            Custome_DAL cus = new Custome_DAL ();
+            return cus.ChangeLogin (cu);
+        }
     }
 }
