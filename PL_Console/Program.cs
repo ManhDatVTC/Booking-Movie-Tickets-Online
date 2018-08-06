@@ -48,7 +48,7 @@ namespace PL_Console {
             };
             string[] a = {
                 "...",
-                "Xin chào ban!",
+                "Xin chào bạn!",
             };
             for (int i = 0; i < chars.Count; i++) {
                 Console.Write (chars[i]);

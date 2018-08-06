@@ -7,7 +7,7 @@ using Persitence;
 
 namespace PL_Console {
     public class Login {
-        static public string _linkDB { get; set; }
+        // static public string _linkDB { get; set; }
         static Login instance = new Login ();
         private Login () {
 
@@ -178,7 +178,7 @@ namespace PL_Console {
                             if (_count == 0) {
                                 if (MessageLogin (_valueUser, _valuePass, _name, _email, _phone, _address, _count) == true) {
                                     _count++;
-                                    Console.WriteLine ("Bạn đã thay đổi tài khoản thành công !");
+                                    Console.WriteLine ("Bạn đã thay đổi thông tin tài khoản thành công !");
                                     Console.WriteLine ("Nhấn Enter để trở lại.");
                                     Console.ReadLine ();
                                     return;

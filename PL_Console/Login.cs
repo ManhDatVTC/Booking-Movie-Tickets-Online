@@ -62,7 +62,7 @@ namespace PL_Console {
                     // string Email;
                     // string password;
                     while (true) {
-                        Console.Write ("- Nhập Email          : ");
+                        Console.Write ("- Nhập tài khoản      : ");
                         Email = Console.ReadLine ();
                         Console.Write ("- Nhập Mật Khẩu       : ");
                         while (true) {
